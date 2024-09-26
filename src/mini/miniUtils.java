@@ -4,8 +4,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.io.*;
 
-
-public class Utils {
+public class miniUtils {
     static Scanner scanner = new Scanner(System.in);
     
     // 입력 통합
@@ -39,16 +38,25 @@ public class Utils {
         }
     }
 
-    // // data 가져오기 - 수정중 groot
-	// static <T> T data(String str,String target){
-	// 	if (target == "save"){
-	// 		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(str));
-	// 		return ois.readObject();
-	// 	}else if(target == "load"){
-	// 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(str));
-	// 		return ois.readObject();
-	// 	}else{
-	// 		System.out.println("save 또는 load로 사용하세요");
-	// 	}
-	// }
+     // data 가져오기 - 수정중 groot
+	 @SuppressWarnings("unchecked")
+	public static <T> T dataLoad(String str){
+		 try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(str))) {
+			 	System.out.println("load 성공");
+			 	return (T) ois.readObject();
+			} catch (FileNotFoundException e) {
+				System.out.println("파일 검색 실패");
+			} catch (IOException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		return null;
+	 }
+	 public static <T> void dataSave(String str, T t){
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(str))) {
+			oos.writeObject(t);
+			System.out.println("save 성공");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	 }
 }

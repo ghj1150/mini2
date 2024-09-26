@@ -1,6 +1,9 @@
-package mini.comment;
+package comment;
 
-public class Comment {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Comment implements Serializable{
     private int idx;
     private String comment;
     private int user_id;
