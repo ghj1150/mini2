@@ -2,7 +2,7 @@ package post;
 
 import java.util.ArrayList;
 import java.util.List;
-import static mini.miniUtils.*;
+import mini.miniUtils;
 
 public class PostService {
 	private List<Post> posts = new ArrayList<Post>();
@@ -14,19 +14,21 @@ public class PostService {
 		posts.add(new Post(4, 4, null, null, null));
 
 	}
+
 	public void add() {
 		System.out.println(posts);
+//		int idx = miniUtils.next("", Integer.class, null, null);
 	}
-	
+
 	public void list() {
-		
+
 	}
-	
+
 	public void modify() {
-		
+
 	}
-	
+
 	public void remove() {
-		
+
 	}
 }
