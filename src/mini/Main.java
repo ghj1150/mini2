@@ -3,6 +3,7 @@ package mini;
 import java.io.Serializable;
 
 import comment.*;
+import message.MessageService;
 import user.UserService;
 
 public class Main implements Serializable{
@@ -14,7 +15,10 @@ public class Main implements Serializable{
 //		 cs.commentView(1);
 		 
 		 // 주연 code
-		 UserService us = new UserService();
+//		 UserService us = new UserService();
+		 
+		// 현우 code
+//		 MessageService me = new MessageService();
 		
 	}
 }
