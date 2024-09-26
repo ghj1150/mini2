@@ -16,8 +16,8 @@ public class Main implements Serializable{
 //		cs.commentView(1);
 		 
 //		주연 code
-//		UserService us = new UserService();
-//		us.test();
+		UserService us = new UserService();
+		us.add();
 		 
 //		현우 code
 //		MessageService me = new MessageService();

@@ -2,29 +2,29 @@ package user;
 
 public class User {
 	// private id, pw, 이름, 생년월일 
-	private String id;
-	private String pw;
+	private String userId;
+	private String userPw;
 	private String name;
 	private String birth;
 	//생성자로 
-	public User(String id, String pw, String name, String birth) {
+	public User(String id, String userPw, String name, String birth) {
 		super();
-		this.id = id;
-		this.pw = pw;
+		this.userId = id;
+		this.userPw = userPw;
 		this.name = name;
 		this.birth = birth;
 	}
 	public String getId() {
-		return id;
+		return userId;
 	}
 	public void setId(String id) {
-		this.id = id;
+		this.userId = id;
 	}
 	public String getPw() {
-		return pw;
+		return userPw;
 	}
 	public void setPw(String pw) {
-		this.pw = pw;
+		this.userPw = pw;
 	}
 	public String getName() {
 		return name;
@@ -40,8 +40,8 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", pw=" + pw + ", name=" + name + ", birth=" + birth + "]";
+		return "User [userId=" + userId + ", userPw=" + userPw + ", name=" + name + ", birth=" + birth + "]";
 	}
-
+	
 	
 }
