@@ -16,6 +16,7 @@ public class Main implements Serializable{
 		 
 		 // 주연 code
 //		 UserService us = new UserService();
+//		 us.test();
 		 
 		// 현우 code
 //		 MessageService me = new MessageService();
