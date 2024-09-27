@@ -8,7 +8,7 @@ public class Main implements Serializable{
 //
 //		승환 code
 		CommentService cs = new CommentService();
-		cs.commentView(1);
+		cs.commentMenu(1);
 //		 
 ////		주연 code
 ////		UserService us = new UserService();
