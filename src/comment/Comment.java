@@ -6,72 +6,76 @@ import java.io.Serializable;
 public class Comment implements Serializable{
     private int idx;
     private String comment;
-    private int user_id;
-    private int post_idx;
-    private int comment_parent_idx;
-    private String create_date;
+    private int userId;
+    private int postIdx;
+    private int commentParentIdx;
+    private String createDate;
     // private int good; // 좋아요
     
     public Comment() {	
 
     }
 
-    public Comment(int idx, String comment, int post_idx, int comment_parent_idx, int user_id, String create_date) {
+    public Comment(int idx, String comment, int postIdx, int commentParentIdx, int userId, String createDate) {
         this.idx = idx;
         this.comment = comment;
-        this.post_idx = post_idx;
-        this.comment_parent_idx = comment_parent_idx;
-        this.user_id = user_id;
-        this.create_date = create_date;
+        this.postIdx = postIdx;
+        this.commentParentIdx = commentParentIdx;
+        this.userId = userId;
+        this.createDate = createDate;
     }
 
-	public int getIdx() {
-		return this.idx;
+    
+
+    public int getIdx() {
+		return idx;
 	}
 
 	public void setIdx(int idx) {
 		this.idx = idx;
 	}
+
 	public String getComment() {
-		return this.comment;
+		return comment;
 	}
 
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public int getPost_idx() {
-		return this.post_idx;
+
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setPost_idx(int post_idx) {
-		this.post_idx = post_idx;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
-	public int getComment_parent_idx() {
-		return this.comment_parent_idx;
+	public int getPostIdx() {
+		return postIdx;
 	}
 
-	public void setComment_parent_idx(int comment_parent_idx) {
-		this.comment_parent_idx = comment_parent_idx;
+	public void setPostIdx(int postIdx) {
+		this.postIdx = postIdx;
 	}
 
-	public int getUser_id() {
-		return this.user_id;
+	public int getCommentParentIdx() {
+		return commentParentIdx;
 	}
 
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setCommentParentIdx(int commentParentIdx) {
+		this.commentParentIdx = commentParentIdx;
 	}
 
-	public String getCreate_date() {
-		return this.create_date;
+	public String getCreateDate() {
+		return createDate;
 	}
 
-	public void setCreate_date(String create_date) {
-		this.create_date = create_date;
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
 	}
 
-    public String toString() {
-		return String.format("%4d %4s %6d %7d %7d %7s", idx, comment, user_id, post_idx, comment_parent_idx, create_date);
+	public String toString() {
+		return String.format("%4d %4s %6d %7d %7d %7s\n", idx, comment, userId, postIdx, commentParentIdx, createDate);
 	}
 }
