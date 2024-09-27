@@ -1,23 +1,25 @@
 package message;
 
 public class Message {
-	 private int id;
+	 private String id;
 	 private String title;
 	 private String contents;
+	 private int msgNo;
 	 private boolean check;
 	 
 	public Message() {
+
 	}
-	public Message(int id, String title, String contents) {
+	public Message(String id, String title, String contents) {
 		this.id = id;
 		this.title = title;
 		this.contents = contents;
 	}
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getTitle() {
@@ -32,11 +34,21 @@ public class Message {
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
+	public int getMsgNo() {
+		return msgNo;
+	}
+	public void setMsgNo(int msgNo) {
+		this.msgNo = msgNo;
+	}
 	public boolean isCheck() {
 		return check;
 	}
 	public void setCheck(boolean check) {
 		this.check = check;
+	}
+	@Override
+	public String toString() {
+		return "[보낸회원=" + id + ", 제목=" + title + "]";
 	}
 	 
 	 

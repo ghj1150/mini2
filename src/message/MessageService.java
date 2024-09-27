@@ -7,44 +7,87 @@ import java.util.List;
 
 import comment.Comment;
 import mini.miniUtils;
+import student.Student;
 
 public class MessageService {
-	Message msg = new Message(123, "title", "contents");
-	
-	MessageService ms = new MessageService();
+
+//	Message msg = new Message("id", "title", "contents");
+	private List<Message> msg = new ArrayList<Message>();
+
 	// 메세지 보내기
-	// 상대회원(int), 제목, 내용
+	// 상대회원(String), 제목, 내용
 	// 읽음, 안읽음 표시
-	public void MessageMenu() throws FileNotFoundException, IOException {
-		int input = miniUtils.next("1.쪽지함 2.보내기 3.나가기",Integer.class, n -> n >= 1 && n <= 3, "1-3사이값을입력"	);
-		switch (input) {
-		case 1: 
-			ms.messageBox();
+	// 메세지 삭제 시 
+//	for(int msgNo = 0 ; ; msgNo++)
+	
+	
+	public void messageMenu() throws FileNotFoundException, IOException {
+		while (true) {
+			int input = miniUtils.next("1.쪽지함 2.보내기 3.나가기", Integer.class, n -> n >= 1 && n <= 3, "1~3 사이 값만 입력");
+			switch (input) {
+			case 1:
+				messageBox();
+				break;
+			case 2:
+				messageSend();
+				break;
+			case 3:
+				;
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	public void messageBox() {
+		System.out.println("===================================================");
+		System.out.println("                     쪽지함");
+		System.out.println("===================================================");
+		
+		for(int i = 0 ; i < msg.size() ; i++) {
+			
+			System.out.println(msg.get(i));
+		}
+		int input = miniUtils.next("1.쪽지삭제 2.나가기", Integer.class, n -> n >= 1 && n <= 2, "1~2 사이 값만 입력");
+		switch(input) {
+		case 1:
+			messageDel();
 			break;
 		case 2:
-			ms.messageSend();
-			break;
-		case 3:
 			;
-			break;
-		default:
 			break;
 		}
 	}
-	
-	
-	public void messageBox() {
-		System.out.println("쪽지함");
-	}
-	
-	
-	public void messageSend()throws FileNotFoundException, IOException {
-		int id = miniUtils.next("쪽지를 보낼 id",Integer.class,  n -> findBy(n) == null, "없는 id입니다.");
-		String title = miniUtils.next("제목",String.class);
-		String contents = miniUtils.next("보낼 내용",String.class);
+
+	public void messageSend() {
+
+
+		String targetId = miniUtils.next("쪽지를 보낼 상대방의 id를 입력", String.class, n -> n != null, "없는 id입니다.");
+		String title = miniUtils.next("제목", String.class);
+		String contents = miniUtils.next("보낼 내용", String.class);
+
+		msg.add(new Message(targetId, title, contents));
+
+		System.out.println("전송완료");
 
 	}
 	
+	public void messageDel() {
+		int m = Integer.parseInt(miniUtils.next("쪽지를 삭제할 상대방의 id", String.class, id -> findBy(id) != null, "존재하지않는 id")) ;
+//		msg.get(m);
+		msg.remove(m);
+	}
+	private String findBy(String id) {
+		String tmp = null;
+		for(int i = 0 ; i < msg.size() ; i++) {
+			if(msg.get(i).getId().equals(id)) {
+				tmp = Integer.toString(i);
+			}
+		}
+		return tmp;
+	}
+}
 
 //	private List<Message> message = new ArrayList<Message>();
 //	{
@@ -57,7 +100,7 @@ public class MessageService {
 //	}
 //	
 //	}
-	
+
 //	public void list() {
 ////		System.out.println("list()");
 //		int input = next("1. 입력순 2. 학번순 3. 이름순 4. 석차순", Integer.class, i -> i <= 4 && i >= 1 , "1- 4사이값을 입력하세요");
@@ -85,6 +128,3 @@ public class MessageService {
 //			System.out.println(tmp.get(i));
 //		}
 //	}
-	
-
-}
