@@ -5,10 +5,10 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class Post implements Serializable {
 	private int idx; // id
-	private int user_id; // 회원 id
+	private int userId; // 회원 id
 	private String title; // 제목
 	private String post; // 게시글
-	private String create_date; // 날짜
+	private String createDate; // 날짜
 //	private int like; // 좋아요
 //	private int view; // 뷰
 
@@ -16,12 +16,13 @@ public class Post implements Serializable {
 
 	}
 
-	public Post(int idx, int user_id, String title, String post, String create_date) {
+	public Post(int idx, int userId, String title, String post, String createDate) {
+		super();
 		this.idx = idx;
-		this.user_id = user_id;
+		this.userId = userId;
 		this.title = title;
 		this.post = post;
-		this.create_date = create_date;
+		this.createDate = createDate;
 	}
 
 	public int getIdx() {
@@ -32,12 +33,12 @@ public class Post implements Serializable {
 		this.idx = idx;
 	}
 
-	public int getUser_id() {
-		return user_id;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public String getTitle() {
@@ -56,16 +57,16 @@ public class Post implements Serializable {
 		this.post = post;
 	}
 
-	public String getCreate_date() {
-		return create_date;
+	public String getCreateDate() {
+		return createDate;
 	}
 
-	public void setCreate_date(String create_date) {
-		this.create_date = create_date;
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
 	}
 
 	public String toString() {
-		return String.format("%4d %10s %10s", user_id, title, create_date);
+		return String.format("%4d %10s %10s", userId, title, createDate);
 	}
 
 }

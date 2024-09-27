@@ -18,8 +18,8 @@ public class Main implements Serializable{
 ////		MessageService me = new MessageService();
 //		
 ////		규철 code
-//		PostService ps = new PostService(); 
-//		ps.add();
+		PostService ps = new PostService(); 
+		ps.postMenu();
 		
 	}
 }
