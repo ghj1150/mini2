@@ -17,10 +17,10 @@ public class Main implements Serializable{
 ////		us.add();
 //		 
 ////		현우 code
-//		MessageService me = new MessageService();
-//		
-//		
-//		me.messageMenu();
+		MessageService me = new MessageService();
+		
+		
+		me.messageMenu();
 		
 //		
 ////		규철 code

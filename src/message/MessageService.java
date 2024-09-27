@@ -18,6 +18,8 @@ public class MessageService {
 	// 상대회원(String), 제목, 내용
 	// 읽음, 안읽음 표시
 	// 메세지 삭제 시 
+	// 내용 보기
+
 //	for(int msgNo = 0 ; ; msgNo++)
 	
 	
@@ -39,7 +41,7 @@ public class MessageService {
 			}
 		}
 	}
-
+	// 쪽지함
 	public void messageBox() {
 		System.out.println("===================================================");
 		System.out.println("                     쪽지함");
@@ -49,17 +51,17 @@ public class MessageService {
 			
 			System.out.println(msg.get(i));
 		}
-		int input = miniUtils.next("1.쪽지삭제 2.나가기", Integer.class, n -> n >= 1 && n <= 2, "1~2 사이 값만 입력");
+		int input = miniUtils.next("1.쪽지삭제 2.내용보기 3.나가기", Integer.class, n -> n >= 1 && n <= 2, "1~2 사이 값만 입력");
 		switch(input) {
 		case 1:
 			messageDel();
 			break;
 		case 2:
-			;
+			messageCon();
 			break;
 		}
 	}
-
+	// 메세지 보내기
 	public void messageSend() {
 
 
@@ -72,20 +74,26 @@ public class MessageService {
 		System.out.println("전송완료");
 
 	}
-	
+	// 메세지 삭제
 	public void messageDel() {
-		int m = Integer.parseInt(miniUtils.next("쪽지를 삭제할 상대방의 id", String.class, id -> findBy(id) != null, "존재하지않는 id")) ;
+		String tmpTarget = miniUtils.next("쪽지를 삭제할 상대방의 id", String.class);
+		
+		int m = findBy(tmpTarget);
 //		msg.get(m);
 		msg.remove(m);
 	}
-	private String findBy(String id) {
-		String tmp = null;
+	private int findBy(String id) {
+		int tmp = 0;
 		for(int i = 0 ; i < msg.size() ; i++) {
 			if(msg.get(i).getId().equals(id)) {
-				tmp = Integer.toString(i);
+				tmp = i;
 			}
 		}
 		return tmp;
+	}
+	
+	public void messageCon() {
+		
 	}
 }
 
