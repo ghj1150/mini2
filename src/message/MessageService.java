@@ -93,6 +93,7 @@ public class MessageService {
 	}
 	
 	public void messageCon() {
+		String mc = miniUtils.next("확인할 쪽지의 회원 id를 입력", String.class);
 		
 	}
 }
