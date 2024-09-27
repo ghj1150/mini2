@@ -64,10 +64,8 @@ public class Post implements Serializable {
 		this.create_date = create_date;
 	}
 
-	@Override
 	public String toString() {
-		return "Post [idx=" + idx + ", user_id=" + user_id + ", title=" + title + ", post=" + post + ", create_date="
-				+ create_date + "]";
+		return String.format("%4d %10s %10s", user_id, title, create_date);
 	}
 
 }
