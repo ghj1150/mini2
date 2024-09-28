@@ -39,7 +39,7 @@ public class miniUtils {
     }
 
      // data 가져오기 - 수정중 groot
-	 @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public static <T> T dataLoad(String str){
 		 try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(str))) {
 			 	System.out.println("load 성공");
@@ -50,13 +50,13 @@ public class miniUtils {
 				e.printStackTrace();
 			}
 		return null;
-	 }
-	 public static <T> void dataSave(String str, T t){
+	}
+	public static <T> void dataSave(String str, T t){
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(str))) {
 			oos.writeObject(t);
 			System.out.println("save 성공");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	 }
+	}
 }

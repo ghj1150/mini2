@@ -7,8 +7,7 @@ public class Main implements Serializable{
 //		System.out.println("hello world! 안녕 세상!");
 //
 //		승환 code
-		CommentService cs = new CommentService();
-		cs.commentMenu(1);
+		new CommentService(1,1);
 //		 
 ////		주연 code
 ////		UserService us = new UserService();

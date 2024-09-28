@@ -2,30 +2,24 @@ package comment;
 
 import java.io.Serializable;
 
-@SuppressWarnings("serial")
+
 public class Comment implements Serializable{
     private int idx;
     private String comment;
-    private int userId;
     private int postIdx;
-    private int commentParentIdx;
+    private int parentIdx;
+	private int userId;
     private String createDate;
     // private int good; // 좋아요
     
-    public Comment() {	
-
-    }
-
-    public Comment(int idx, String comment, int postIdx, int commentParentIdx, int userId, String createDate) {
+    public Comment(int idx, String comment, int postIdx, int parentIdx, int userId, String createDate) {
         this.idx = idx;
         this.comment = comment;
         this.postIdx = postIdx;
-        this.commentParentIdx = commentParentIdx;
+        this.parentIdx = parentIdx;
         this.userId = userId;
         this.createDate = createDate;
     }
-
-    
 
     public int getIdx() {
 		return idx;
@@ -59,12 +53,12 @@ public class Comment implements Serializable{
 		this.postIdx = postIdx;
 	}
 
-	public int getCommentParentIdx() {
-		return commentParentIdx;
+	public int getparentIdx() {
+		return parentIdx;
 	}
 
-	public void setCommentParentIdx(int commentParentIdx) {
-		this.commentParentIdx = commentParentIdx;
+	public void setparentIdx(int parentIdx) {
+		this.parentIdx = parentIdx;
 	}
 
 	public String getCreateDate() {
@@ -76,6 +70,6 @@ public class Comment implements Serializable{
 	}
 
 	public String toString() {
-		return String.format("%4d %4s %6d %7d %7d %7s\n", idx, comment, userId, postIdx, commentParentIdx, createDate);
+		return String.format("%4d %4s %6d %7d %7d %7s\n", idx, comment, postIdx, parentIdx, userId, createDate);
 	}
 }
