@@ -28,8 +28,7 @@ public class PostService {
 
 		while (true) {
 
-			int input = miniUtils.next("1.목록보기 2. 글쓰기 3. 수정 4. 삭제", Integer.class, n -> n > 0 && n <= 4,
-					"1~4사이의 값을 입력하세요");
+			int input = miniUtils.next("1.목록보기 2. 글쓰기", Integer.class, n -> n > 0 && n <= 2, "1~2사이의 값을 입력하세요");
 			switch (input) {
 			case 1:
 				list();
@@ -37,10 +36,6 @@ public class PostService {
 			case 2:
 				add();
 				break;
-			case 3:
-				modify();
-			case 4:
-				remove();
 			default:
 				break;
 			}
@@ -87,26 +82,53 @@ public class PostService {
 
 	// 게시글 내용
 	public void readpost(Post post) {
-		
+
 		System.out.println("==============================================");
-		System.out.println("                제목 : " +post.getTitle()+ "                   ");
+		System.out.println("                제목 : " + post.getTitle() + "                   ");
 		System.out.println("==============================================");
 		System.out.println();
-		System.out.println("내용 : " + post.getPost() +"\n");
-		
-		System.out.println("             날짜 : " + post.getCreateDate());
+		System.out.println("내용 : " + post.getPost() + "\n");
+
+		System.out.println("                               날짜 : " + post.getCreateDate());
 		System.out.println("---------------------------------------------");
-		//종료 버튼 
+		// 종료 버튼
 		// 수정 삭제는 post를 작성한 user만 수정 삭제 가능하게
+		while (true) {
+			int input = miniUtils.next("1.수정하기 2. 삭제하기 3. 종료", Integer.class, n -> n > 0 && n <= 3, "1~3사이의 값을 입력하세요");
+			switch (input) {
+			case 1:
+				modify();
+				break;
+			case 2:
+				remove();
+				break;
+			case 3:
+				System.out.println("종료");
+				return;
+			default:
+				break;
+			}
+		}
 	}
 
 	// 수정
 	public void modify() {
-
+		String title = miniUtils.next("제목", String.class);
+		String post = miniUtils.next("게시글", String.class);
 	}
 
 	// 삭제
 	public void remove() {
 
 	}
+	
+//	private Post findBy(int user_id) {
+//		Post post = null;
+//		for(int i = 0; i < posts.size(); i++) {
+//			if(posts.get(i).getUserId() == user_id) {
+//				post = posts.get(i);
+//			}
+//		}
+//		return post;
+//	}
 }
