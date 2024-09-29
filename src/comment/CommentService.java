@@ -1,7 +1,6 @@
 package comment;
 
 import java.util.*;
-
 import mini.miniUtils;
 
 @SuppressWarnings("unchecked")
@@ -57,7 +56,6 @@ public class CommentService {
         } else {
             maxIdx = 0; // 댓글이 없는경우
         }
-
 		commentMenu();
 	}
 
@@ -83,29 +81,18 @@ public class CommentService {
 					modify(tmp);
 					break;					
 				case 4:
-					remove(postIdx);
+					tmp = targetComment(false);
+					if(tmp == null) return;
+					remove(tmp);
 					break;
 				case 5:
 					System.out.println("종료");
-					break;										
-			
+					return;			
 				default:
 					break;
 			}
 		}
 	}
-	// 대댓글 선택
-	// public void write(List<Comment> targetList){
-
-	// 	for (int i =0;i<targetList.size(); i++){
-	// 		if(targetList.get(i).getIdx() == target){
-	// 			target = i;
-	// 			break;
-	// 		}
-	// 	}
-	// 	System.out.println(target);
-	// 	// write(target);
-	// }
 
 	public void write(int parentIdx){
 		String str = miniUtils.next("댓글을 작성해주세요. (종료:0)",  String.class, (n) -> n != null, "댓글 작성 오류");
@@ -115,41 +102,50 @@ public class CommentService {
 
 		System.out.println("댓글 작성 완료");
 	}
-
+	/**
+	 * 
+	 * @param ck
+	 * @return true = 대댓, false = 수정/삭제
+	 */
 	public Comment targetComment(boolean ck){
 		if(ck){
-			// 대댓
+			// 대댓 선택
 			List<Comment> targetList = (List<Comment>) viewProc(false);
 			int target = miniUtils.next("댓글 선택 (종료 : 0)",  Integer.class, (n) -> 0 <= n && n <= targetList.size(), "제대로 선택해");		
 			if(target == 0) return null;
 			return targetList.get(target-1);
 		}else{
-
+			List<Comment> myComments = new ArrayList<Comment>();
+			int cnt = 1;
 			// 자기가 글쓴 데이터만 수정 삭제 가능하게 리스트 뽑아서 진행해야됨
+			for (Comment c : comments){
+				if(userIdx == c.getUserId()){
+					System.out.println(cnt +": "+c.getComment());
+					myComments.add(c);
+					cnt++;
+				}
+			}
 			// 수정/삭제
-			int target = miniUtils.next("댓글 선택 (종료 : 0)",  Integer.class, (n) -> 0 <= n && n <= comments.size(), "제대로 선택해");		
+			int target = miniUtils.next("댓글 선택 (종료 : 0)",  Integer.class, (n) -> 0 <= n && n <= myComments.size(), "제대로 선택해");		
 			if(target == 0) return null;
-			return comments.get(target-1);
+			return myComments.get(target-1);
 		}
 	}
 
 	public void modify(Comment target){
-		System.out.println(target);
-		
+		target.setComment(miniUtils.next("댓글 수정",  String.class, (n) -> n != null, "작성해줘"));
+		System.out.println("수정 완료");
 	}
-	public void remove(int postIdx){
-		
+	public void remove(Comment target){
+		comments.remove(target);
+		System.out.println("삭제 완료");
 	}
-
 	
 	public List<?> viewProc(Boolean ckReturn) {
 		List<String> strList = new ArrayList<>();
 		List<Comment> parentIdx0 = new ArrayList<>();
 		// 선택한 게시글 댓글 추출 및 부모 댓글 순으로 sort
-
 		comments.sort((o1,o2)->o1.getparentIdx()-o2.getparentIdx());
-		
-		System.out.println(comments);
 		// 데이터 가공
 		int cnt=1;
 		for (Comment i : comments) {
@@ -182,5 +178,7 @@ public class CommentService {
 		for(String i : strList) {
 			System.out.println(i);
 		}
+		System.out.println("==============================================");
+		miniUtils.dataSave("./src/data/comment.ser", comments);
 	}
 }
