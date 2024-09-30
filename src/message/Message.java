@@ -1,37 +1,51 @@
 package message;
 
-public class Message {
-	
-	 private String userId; // 내 id (보낼사람)
-	 private String otherId; // 상대 id (받는사람)
-	 private String title; // 제목
-	 private String contents; // 내용보기
-	 private int msgNo; // 메세지 번호
-	 private boolean check; // 메세지 읽음 안읽음
-	 
-	public Message() {
+import java.io.Serializable;
 
-	}
+public class Message implements Serializable{
 	
-	public Message(String userId, String otherId, String title, String contents) {
-		this.userId = userId;
-		this.otherId = otherId;
+	 private int idx; // id
+	 private int userIdx; // 내 id (보낼사람)
+	 private int otherIdx; // 상대 id (받는사람)
+	 private String title; // 제목
+	 private String contents; // 내용
+	 private String date; // 날짜
+//	 private int msgNo; // 메세지 번호
+	 private boolean check; // 메세지 읽음 안읽음
+//	 
+//	public Message() {
+//
+//	}
+	
+	public Message(int idx, int otherIdx, String title, String contents, String date) {
+		this.idx = idx;
+		this.otherIdx = otherIdx;
 		this.title = title;
 		this.contents = contents;
+		this.date = date;
 	}
 	
-	public String getUserId() {
-		return userId;
+	
+	public int getIdx() {
+		return idx;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
+
+	public int getUserIdx() {
+		return userIdx;
+	}
+	public void setUserIdx(int userIdx) {
+		this.userIdx = userIdx;
 	}
 	
-	public String getOtherId() {
-		return otherId;
+	public int getOtherIdx() {
+		return otherIdx;
 	}
-	public void setOtherId(String otherId) {
-		this.otherId = otherId;
+	public void setOtherIdx(int otherIdx) {
+		this.otherIdx = otherIdx;
 	}
 	public String getTitle() {
 		return title;
@@ -45,12 +59,21 @@ public class Message {
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	public int getMsgNo() {
-		return msgNo;
+	
+	public String getDate() {
+		return date;
 	}
-	public void setMsgNo(int msgNo) {
-		this.msgNo = msgNo;
+
+	public void setDate(String date) {
+		this.date = date;
 	}
+
+	//	public int getMsgNo() {
+//		return msgNo;
+//	}
+//	public void setMsgNo(int msgNo) {
+//		this.msgNo = msgNo;
+//	}
 	public boolean isCheck() {
 		return check;
 	}
@@ -59,7 +82,7 @@ public class Message {
 	}
 	@Override
 	public String toString() {
-		return "[보낸사람ID= " + userId + ",  받은사람ID= "+ otherId +  " , 제목=" + title + "]";
+		return "[ 보낸사람ID = " + idx + ",  받은사람ID = "+ otherIdx +  ", 제목 = " + title + ", 날짜 = " + date+" ]" ;
 	}
 	 
 	 
