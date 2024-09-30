@@ -7,9 +7,10 @@ import mini.miniUtils;
 public class PostService {
 	private List<Post> posts = new ArrayList<Post>();
 	private Post choicePost;
-//	public int userId = 1;
+	private int userId;
 
-	{
+	public PostService(int userid){
+		this.userId=userid;
 		posts = miniUtils.dataLoad("./src/data/post.ser");
 
 		if (posts == null) {
@@ -94,6 +95,7 @@ public class PostService {
 	// 게시글 내용
 	public void readpost(Post post) {
 
+		
 		System.out.println("==============================================");
 		System.out.println("                제목 : " + post.getTitle() + "                   ");
 		System.out.println("==============================================");
@@ -105,8 +107,12 @@ public class PostService {
 
 		// 종료 버튼
 		// 수정 삭제는 post를 작성한 user만 수정 삭제 가능하게
-
+//		boolean userCk = false; 
+//		if(choicePost.getIdx() == userId) userCk = true;
+		
 		while (true) {
+			
+			// 분기 점
 			int input = miniUtils.next("1.수정하기 2. 삭제하기 3. 종료", Integer.class, n -> n > 0 && n <= 3, "1~3사이의 값을 입력하세요");
 
 			switch (input) {
