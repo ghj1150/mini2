@@ -22,15 +22,14 @@ public class AccountBookService {
 
     private void loadDefaultData() {
         loadData = new ArrayList<>();
-        loadData.add(new AccountBook(1,1,1,1,"test1"));
-        loadData.add(new AccountBook(2,2,1,1,"test2"));
-        loadData.add(new AccountBook(3,3,1,1,"test3"));
-        loadData.add(new AccountBook(4,4,1,1,"test4"));
-        loadData.add(new AccountBook(5,5,1,1,"test5"));
+        loadData.add(new AccountBook(1,1,"test1",1,1,"2024/09/30"));
+        loadData.add(new AccountBook(2,1,"test2",1,1,"2024/09/30"));
+        loadData.add(new AccountBook(3,1,"test3",1,1,"2024/01/03"));
+        loadData.add(new AccountBook(4,1,"test4",1,1,"2024/01/03"));
+        loadData.add(new AccountBook(5,1,"test5",1,1,"2024/01/03"));
     }
 
 	public void setting(){
-		// 게시글에 맞는 데이터 추출
 		for (AccountBook c : loadData) {
 			if (c.getUserIdx() == userIdx) {
 				accountBooks.add(c);
@@ -39,24 +38,24 @@ public class AccountBookService {
 		if (!accountBooks.isEmpty()) {
             maxIdx = accountBooks.get(accountBooks.size()-1).getIdx();
         } else {
-            maxIdx = 0; // 댓글이 없는경우
+            maxIdx = 0;
         }
 		accountBookMenu();
 	}
 
     public void accountBookMenu(){
+    	AccountCalendar ac = new AccountCalendar();
 		while(true){
-			// 캘린더 표출 - 해야됨
-            AccountCalendar ac = new AccountCalendar();
-            ac.calendar();
+			ac.cal();
 			int input = miniUtils.next("1.날짜변경 2.가계부 작성 3.수정 4.삭제 5.종료",Integer.class,n -> 1 <= n && n <= 5, "1~5사이의 숫자만 입력해주세요.");
 
 			switch (input) {
 				case 1:
-					
+					// 캘린더 표출 - 해야됨
+		            ac.CalendarMenu();
 					break;
 				case 2:
-					
+					add();
 					break;					
 				case 3:
 					
@@ -71,4 +70,10 @@ public class AccountBookService {
 			}
 		}
 	}
+    
+    public void add() {
+    	String str = miniUtils.next("연도, 월을 입력해주세요. ex) 2024/09", String.class, n-> n!=null, "이부분 나중에 수정할것(정규화로 형식 맞춰야됨)");
+    	
+    	
+    }
 }

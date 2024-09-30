@@ -10,7 +10,7 @@ public class Comment implements Serializable{
     private int parentIdx;
 	private int userId;
     private String createDate;
-    // private int good; // 좋아요
+    // private int good; // 좋아요 클래스로 다시 만든다.
     
     public Comment(int idx, String comment, int postIdx, int parentIdx, int userId, String createDate) {
         this.idx = idx;
