@@ -10,7 +10,7 @@ public class UserService {
 	
 	public void UserStart() {
 		while(true) {
-			int input = miniUtils.next("1.로그인 2.회원가입 3.비밀번호 찾기 4.정보수정 ", Integer.class, n ->1 <=n && n <= 4, "1~4사이의 값을 입력하세요");
+			int input = miniUtils.next("1.로그인 2.회원가입 3.비밀번호 찾기 4.정보수정 5.회원정보삭제", Integer.class, n ->1 <=n && n <= 5, "1~5사이의 값을 입력하세요");
 			switch(input) {
 			case 1:
 				login();
@@ -24,13 +24,16 @@ public class UserService {
 			case 4:
 				modify();
 				break;
+			case 5:
+				remove();
+				break;
 			}
 		}
 	}
 	
 	
 	public void add() {
-		String userid = miniUtils.next("아이디를 입력 해주세요", String.class, n -> n != null, " 아이디를 잘못 입력 하였습니다." );
+		String userid = miniUtils.next("아이디를 입력 해주세요", String.class, n -> findById(n) == null, " 존재하는 아이디 입니다. 다시 입력 해주세요.");
 		String pw = miniUtils.next("pw", String.class, n -> n != null, " 비밀번호를 잘못 입력 하였습니다." );
 		String name = miniUtils.next("name", String.class, n -> n != null, " 이름을 잘못 입력 하였습니다." );
 		String phoneNumber = miniUtils.next("phoneNumber", String.class, n -> n != null, " 전화번호를 확인을 해주세요." );
@@ -42,7 +45,7 @@ public class UserService {
 	public void login()  {
 	
 		String idTmp = miniUtils.next("아이디", String.class, n-> findById(n) != null, "입력한 아이디는 존재하지 않습니다.");
-		String pwTmp = miniUtils.next("비밀번호", String.class, n-> findByPw(n) != null, "입력한 비밀번호는 틀린 비밀번호니다.");
+		String pwTmp = miniUtils.next("비밀번호", String.class, n-> findByPw(n) != null, "입력한 비밀번호는 틀린 비밀번호 입니다.");
 
 	
 	
@@ -60,8 +63,13 @@ public class UserService {
 		String pw =  miniUtils.next("변경 할 비밀번호 : ", String.class, n -> n != null, " 입력하신 비밀번호는 형식에 맞지 않습니다. ");
 		int phoneNumber = miniUtils.next("변경할 휴대폰번호는010과 - 빼고 기입해주세요 ", Integer.class, n ->1 <=n && n <= 11, "변경할 번호 8자리를 입력하세요");//나중에 수정해야함
 	}
-	
-	
+
+	public void remove() {
+		User user =findById(miniUtils.next("회원 아이디를 입력하시오", String.class, n -> findById(n) != null, "입력한 아이디는 존재하지 않습니다."));
+//		System.out.println(users);
+		users.remove(user);
+//		System.out.println(users);
+	}
 	
 	private User findById(String userid) {
 		User user = null;
