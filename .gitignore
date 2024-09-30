@@ -12,4 +12,4 @@ local.properties
 .recommenders
 .classpath
 .project
-/src/data/*
+/src/data/*.ser
