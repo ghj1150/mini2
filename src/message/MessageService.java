@@ -5,15 +5,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import comment.Comment;
 import mini.miniUtils;
-import student.Student;
 
 public class MessageService {
 
 //	Message msg = new Message("id", "title", "contents");
 	private List<Message> msg = new ArrayList<Message>();
-
+	
 	// 메세지 보내기
 	// 상대회원(String), 제목, 내용
 	// 읽음, 안읽음 표시
@@ -22,8 +20,14 @@ public class MessageService {
 
 //	for(int msgNo = 0 ; ; msgNo++)
 	
+//	public void messageLogin() {
+//		
+//		String userId = miniUtils.next("로그인할 아이디를 입력해 주세요", String.class);
+//	}
 	
 	public void messageMenu() throws FileNotFoundException, IOException {
+		
+		
 		while (true) {
 			int input = miniUtils.next("1.쪽지함 2.보내기 3.나가기", Integer.class, n -> n >= 1 && n <= 3, "1~3 사이 값만 입력");
 			switch (input) {
@@ -64,37 +68,48 @@ public class MessageService {
 	// 메세지 보내기
 	public void messageSend() {
 
-
-		String targetId = miniUtils.next("쪽지를 보낼 상대방의 id를 입력", String.class, n -> n != null, "없는 id입니다.");
+		String myId = miniUtils.next("보낼사람 아이디 입력", String.class);
+		String targetId = miniUtils.next("받는사람 아이디 입력", String.class, s -> s != null, "없는 id입니다.");
 		String title = miniUtils.next("제목", String.class);
 		String contents = miniUtils.next("보낼 내용", String.class);
 
-		msg.add(new Message(targetId, title, contents));
+		msg.add(new Message(myId, targetId, title, contents));
 
 		System.out.println("전송완료");
 
 	}
 	// 메세지 삭제
 	public void messageDel() {
-		String tmpTarget = miniUtils.next("쪽지를 삭제할 상대방의 id", String.class);
+		String tmpTarget = miniUtils.next("쪽지를 삭제할 보낸사람 id를 입력", String.class, s -> s != null, "없는 id입니다.");
 		
 		int m = findBy(tmpTarget);
 //		msg.get(m);
 		msg.remove(m);
 	}
-	private int findBy(String id) {
+	
+	// 송신자 찾기
+	private int findBy(String userId) {
 		int tmp = 0;
 		for(int i = 0 ; i < msg.size() ; i++) {
-			if(msg.get(i).getId().equals(id)) {
+			if(msg.get(i).getUserId().equals(userId)) {
 				tmp = i;
 			}
 		}
 		return tmp;
 	}
-	
+	// 내용보기
 	public void messageCon() {
-		String mc = miniUtils.next("확인할 쪽지의 회원 id를 입력", String.class);
+		String tmpTarget = miniUtils.next("확인할 쪽지의 보낸사람 id를 입력", String.class, s -> s != null, "없는 id입니다.");
+		int m = findBy(tmpTarget);
+		System.out.println("보낸사람: " +msg.get(m).getUserId() +  "/ 제목: " + msg.get(m).getTitle());
+	
+//		for(int i = 0 ; i < msg.get(m).getContents().length() ; i++ ) {
+//			if(msg.get(m).getContents().length()< 10) {
+//				System.out.println();
+//			}
+//		}
 		
+		System.out.println("보낸 내용: " + msg.get(m).getContents());
 	}
 }
 
