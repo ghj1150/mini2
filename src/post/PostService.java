@@ -6,7 +6,8 @@ import mini.miniUtils;
 
 public class PostService {
 	private List<Post> posts = new ArrayList<Post>();
-	public int userId = 2;
+	private Post choicePost;
+//	public int userId = 1;
 
 	{
 		posts = miniUtils.dataLoad("./src/data/post.ser");
@@ -54,12 +55,12 @@ public class PostService {
 //		System.out.println(posts);
 
 		int idx = miniUtils.next("id", Integer.class, n -> n > 0, "");
-		int user_id = miniUtils.next("회원 id", Integer.class, n -> n > 0, "");
+		int userId = miniUtils.next("회원 id", Integer.class, n -> n > 0, "");
 		String title = miniUtils.next("제목", String.class);
 		String post = miniUtils.next("게시글", String.class);
 		String create_date = miniUtils.next("날짜", String.class);
 
-		posts.add(new Post(idx, user_id, title, post, create_date));
+		posts.add(new Post(idx, userId, title, post, create_date));
 	}
 
 	// 목록보기
@@ -85,9 +86,9 @@ public class PostService {
 //			return;
 //		}
 //
-		Post p = findByIdx(miniUtils.next("몇번?", Integer.class, n -> findByIdx(n) != null, "게시글이 없습니다"));
+		choicePost = findByIdx(miniUtils.next("아이디?", Integer.class, n -> findByIdx(n) != null, "게시글이 없습니다"));
 
-		readpost(p);
+		readpost(choicePost);
 	}
 
 	// 게시글 내용
@@ -110,10 +111,10 @@ public class PostService {
 
 			switch (input) {
 			case 1:
-				modify(post);
+				modify();
 				return;
 			case 2:
-				remove(post);
+				remove();
 				return;
 			case 3:
 				return;
@@ -124,35 +125,32 @@ public class PostService {
 	}
 
 	// 수정
-	public void modify(Post p) {
-
-//		Post p = findById(miniUtils.next("몇번?", Integer.class, n -> findById(n) != userId, null));
+	public void modify() {
 
 		String title = miniUtils.next("제목", String.class);
 		String post = miniUtils.next("게시글", String.class);
-		p.setTitle(title);
-		p.setPost(post);
+		choicePost.setTitle(title);
+		choicePost.setPost(post);
 
 		System.out.println("수정완료");
 	}
 
 	// 삭제
-	public void remove(Post p) {
-//		Post p = findById(miniUtils.next("삭제할 글", Integer.class, null, null));
-		posts.remove(p);
+	public void remove() {
+		posts.remove(choicePost);
 		System.out.println("삭제완료");
 	}
 
-//	private Post findById(int userId) {
-//		Post post = null;
-//		for (int i = 0; i < posts.size(); i++) {
-//			if (posts.get(i).getUserId() == userId) {
-//				post = posts.get(i);
-//			}
-//		}
+	private Post findById(int userId) {
+		Post post = null;
+		for (int i = 0; i < posts.size(); i++) {
+			if (posts.get(i).getUserId() == userId) {
+				post = posts.get(i);
+			}
+		}
 
-//		return post;
-//	}
+		return post;
+	}
 
 	private Post findByIdx(int idx) {
 		Post post = null;

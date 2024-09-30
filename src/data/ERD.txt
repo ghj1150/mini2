@@ -27,9 +27,9 @@ Table 분석 {
 
 Table 게시글 {
   idx integer
-  회원idx String
-  제목 integer
-  게시글 integer
+  회원idx integer
+  제목 String
+  게시글 String
   날짜 String
   좋아요 integer
   view integer
