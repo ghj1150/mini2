@@ -79,7 +79,6 @@ public class MessageService {
 				messageSend();
 				break;
 			case 3:
-				;
 				break;
 			default:
 				break;
