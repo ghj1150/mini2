@@ -2,25 +2,27 @@ package user;
 
 public class User {
 	// private id, pw, 이름, 생년월일 
-	private String userId;
+	private String userIdx;
 	private String userPw;
 	private String name;
 	private String birth;
 	private int lostMoney;
+	private int phoneNumber;
 	//생성자로 
 	public User(String id, String userPw, String name, String birth ) {
 		super();
-		this.userId = id;
+		this.userIdx = id;
 		this.userPw = userPw;
 		this.name = name;
 		this.birth = birth;
 		this.lostMoney = 0;
+		this.phoneNumber = phoneNumber;
 	}
 	public String getUserId() {
-		return userId;
+		return userIdx;
 	}
 	public void setUserId(String userId) {
-		this.userId = userId;
+		this.userIdx = userId;
 	}
 	public String getUserPw() {
 		return userPw;
@@ -40,6 +42,7 @@ public class User {
 	public void setBirth(String birth) {
 		this.birth = birth;
 	}
+	
 	public int getLostMoney() {
 		return lostMoney;
 	}
@@ -48,7 +51,7 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", userPw=" + userPw + ", name=" + name + ", birth=" + birth + ", lostMoney="
+		return "User [userId=" + userIdx + ", userPw=" + userPw + ", name=" + name + ", birth=" + birth + ", lostMoney="
 				+ lostMoney + "]";
 	}
 
