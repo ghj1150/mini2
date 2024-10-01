@@ -42,7 +42,6 @@ public class miniUtils {
 	@SuppressWarnings("unchecked")
 	public static <T> T dataLoad(String str){
 		 try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(str))) {
-			 	System.out.println("load 성공");
 			 	return (T) ois.readObject();
 			} catch (FileNotFoundException e) {
 				System.out.println("파일 검색 실패");
@@ -54,7 +53,6 @@ public class miniUtils {
 	public static <T> void dataSave(String str, T t){
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(str))) {
 			oos.writeObject(t);
-			System.out.println("save 성공");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

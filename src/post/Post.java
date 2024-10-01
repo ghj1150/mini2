@@ -5,7 +5,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class Post implements Serializable {
 	private int idx; // id
-	private int userId; // 회원 id
+	private String userId; // 회원 id
 	private String title; // 제목
 	private String post; // 게시글
 	private String createDate; // 날짜
@@ -16,8 +16,7 @@ public class Post implements Serializable {
 
 	}
 
-	public Post(int idx, int userId, String title, String post, String createDate) {
-		super();
+	public Post(int idx, String userId, String title, String post, String createDate) {
 		this.idx = idx;
 		this.userId = userId;
 		this.title = title;
@@ -33,11 +32,11 @@ public class Post implements Serializable {
 		this.idx = idx;
 	}
 
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
@@ -66,7 +65,7 @@ public class Post implements Serializable {
 	}
 
 	public String toString() {
-		return String.format("%4d %10s %10s", userId, title, createDate);
+		return String.format("%4s %10s %10s", userId, title, createDate);
 	}
 
 }

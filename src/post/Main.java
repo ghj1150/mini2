@@ -18,7 +18,7 @@ public class Main implements Serializable{
 ////		MessageService me = new MessageService();
 //		
 ////		규철 code
-		PostService ps = new PostService(1); 
+		PostService ps = new PostService("123"); 
 		ps.postMenu();
 		
 	}
