@@ -7,7 +7,7 @@ public class Main implements Serializable{
 //		System.out.println("hello world! 안녕 세상!");
 //
 //		승환 code
-		AccountBookService cs = new AccountBookService("test1");
+		AccountBookService cs = new AccountBookService("이승환");
 		
 //		 
 ////		주연 code
