@@ -2,10 +2,10 @@ package user;
 
 import java.io.Serializable;
 
-import comment.*;
-import message.MessageService;
-import post.PostService;
-import user.UserService;
+//import comment.*;
+//import message.MessageService;
+//import post.PostService;
+//import user.UserService;
 
 public class UserMain implements Serializable{
 	public static void main(String[] args) {
