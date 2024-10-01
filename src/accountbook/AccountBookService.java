@@ -42,12 +42,13 @@ public class AccountBookService {
         loadData.add(new AccountBook(5, "이승환", "김찌", 0, 1, "2024/10/30"));
     }
     
-    
+    // 메인 메뉴
     public void accountBookMenu(){
 		while(true){
-			printCal(cal);
+			printCal();
+			accountBookProc();
 			accountBookPrint();
-			int input = miniUtils.next("1.날짜변경 2.가계부작성 3.수정 4.삭제 5.메인메뉴",Integer.class,n -> 1 <= n && n <= 5, "1~5사이의 숫자만 입력해주세요.");
+			int input = miniUtils.next("1.날짜변경 2.가계부작성 3.수정 4.삭제 5.메인메뉴", Integer.class,n -> 1 <= n && n <= 5, "1~5사이의 숫자만 입력해주세요.");
 			switch (input) {
 				case 1:
 		            CalendarMenu();
@@ -69,76 +70,7 @@ public class AccountBookService {
 			}
 		}
 	}
-    
-    public void accountBookProc() {
-
-    	for(AccountBook ac : loadData) {
-    		
-    		String dateTmp= cal.get(Calendar.YEAR) +"/"+ String.format("%02d", (cal.get(Calendar.MONTH)+1));
-    		
-    		if (!ac.getuserId().equals(userId)) continue;
-    		if(ac.getDate().substring(0,7).equals(dateTmp)) {
-    			tmpDetails.add(ac);
-    		}
-    		
-    	}
-    	
-    	System.out.println("=============================");
-    }
-    
-    public void accountBookPrint() {
-    	accountBookProc();
-    	System.out.printf("%20s",userId+"님 가계부 목록\n");
-    	System.out.println("-----------------------------");
-    	
-    	if(tmpDetails.isEmpty() || tmpDetails == null) {
-    		System.out.println();
-    		System.out.printf("%22s",userId+"님 가계부 목록 비어있습니다.\n");
-    		System.out.println();
-    		System.out.println("-----------------------------");
-    		return;
-    	} 
-    	
-    	
-    	System.out.printf("[ %2s | %-20s | %9s | %9s | %9s ]\n", "번호", "내용", "수입", "지출", "날짜");
-    	for (int i = 0; i < tmpDetails.size(); i++) {
-    		AccountBook tmpData = tmpDetails.get(i);
-    		System.out.printf("[ %03d | %-20s | %10s | %10s | %10s ]\n", 
-    				i+1, tmpData.getDetail(), tmpData.getIncome(), tmpData.getLosses(), tmpData.getDate());
-    	}
-    	
-//    	System.out.print("["+cnt +" | "+ ac.getDate() + " | " + ac.getDetail() + " | " );
-//		if(ac.getIncome()==0) {
-//			System.out.print("-"+ac.getLosses());
-//		}else {
-//			System.out.print("+"+ac.getIncome());
-//		}
-		System.out.println("]");
-    }
-    
-    
-	public void printCal(Calendar cal) {
-		System.out.println("=============================");
-		System.out.println("         "+ cal.get(Calendar.YEAR) +" / "+ String.format("%02d", (cal.get(Calendar.MONTH)+1)));
-		System.out.println("=============================");
-		int lastDate = cal.getActualMaximum(Calendar.DATE);
-		int startDay = cal.get(Calendar.DAY_OF_WEEK);
-		for(int i = 1 - startDay + 1 ; i <= lastDate ; i++) {
-			if(i > 0) {
-				System.out.printf("%4d", i);
-			}
-			else {
-				System.out.print("    ");
-			}
-			if(i % 7 == (7 - startDay + 1) % 7) {
-				System.out.println();
-			}
-		}
-		System.out.println();
-		System.out.println("=============================");
-		
-	}
-    
+    // 달력 메뉴
     public void CalendarMenu() {
     	while(true) {
 			int input = miniUtils.next("1.이전달  2.다음달  3.이전해  4.다음해  5.특정 연월  (종료:0)", Integer.class, n-> 0 <= n && n<6, "0~5번 작성");
@@ -169,69 +101,164 @@ public class AccountBookService {
 			default:
 				break;
 			}
+			accountBookProc();
 			accountBookPrint();
 			
 		}
     }
     
+    public void accountBookPrint() {
+    	
+    	System.out.printf("%35s",userId+"님 가계부 목록\n");
+    	System.out.println("------------------------------------------------------------------------");
+    	
+    	if(tmpDetails.isEmpty() || tmpDetails == null) {
+    		System.out.println();
+    		System.out.printf("%22s",userId+"님 가계부 목록 비어있습니다.\n");
+    		System.out.println();
+    		System.out.println("------------------------------------------------------------------------");
+    		return;
+    	} 
+    	
+    	System.out.printf("[ %2s | %-20s | %8s | %8s | %8s ]\n", "번호", "내용", "수입", "지출", "날짜");
+    	System.out.println("------------------------------------------------------------------------");
+    	for (int i = 0; i < tmpDetails.size(); i++) {
+    		AccountBook tmpData = tmpDetails.get(i);
+    		System.out.printf("[ %04d | %-20s | %10s | %10s | %10s ]\n", 
+    				i+1, tmpData.getDetail(), tmpData.getIncome(), tmpData.getLosses(), tmpData.getDate());
+    	}
+    	System.out.println("------------------------------------------------------------------------");
+    }
+    
+    public void accountBookProc() {
+    	tmpDetails = new ArrayList<>();
+    	for(AccountBook ac : loadData) {
+    		
+    		String dateTmp= cal.get(Calendar.YEAR) +"/"+ String.format("%02d", (cal.get(Calendar.MONTH)+1));
+    		
+    		if (!ac.getuserId().equals(userId)) {
+    			continue;
+    		} else if(ac.getDate().substring(0,7).equals(dateTmp)) {
+    			tmpDetails.add(ac);
+    		}
+    		
+    	}
+    }
+    
+	public void printCal() {
+		System.out.println("========================================================================");
+		System.out.printf("%40s\n",cal.get(Calendar.YEAR) +" / "+ String.format("%02d", (cal.get(Calendar.MONTH)+1)));
+		System.out.println("========================================================================");
+		int lastDate = cal.getActualMaximum(Calendar.DATE);
+		int startDay = cal.get(Calendar.DAY_OF_WEEK);
+		System.out.printf("%20s","");
+		for(int i = 1 - startDay + 1 ; i <= lastDate ; i++) {
+			
+			if(i > 0) {
+				System.out.printf("%4d", i);
+			}
+			else {
+				System.out.print("    ");
+			}
+			if(i % 7 == (7 - startDay + 1) % 7) {
+				System.out.printf("\n%20s","");
+			}
+		}
+		System.out.println();
+		System.out.println("========================================================================");
+		
+	}
+    
     public void add() {
-    	int cost=0;
-    	int input = miniUtils.next("1.수입 2.지출 (종료:0)",Integer.class,n -> 0 <= n && n <= 2, "0~2사이의 숫자만 입력해주세요.");
-    	String str = miniUtils.next("내용을 입력하세요.", String.class, n-> n!=null, "이부분 나중에 수정할것(정규화로 형식 맞춰야됨)");
-    	String date = miniUtils.next("연도, 월을 입력해주세요. ex) 2024/09/30", String.class, n-> n!=null, "이부분 나중에 수정할것(정규화로 형식 맞춰야됨)");
-    	if (input == 1) {
-    		cost = miniUtils.next("수입을 입력해주세요.",Integer.class,n -> n !=0 , "제대로 작성해주세요.");
-    		loadData.add(new AccountBook(++maxIdx,userId,str,cost,0,date));
+    	int income = 0;
+    	int losses = 0;
+    	
+    	String str = miniUtils.next("가계부에 쓸 내용을 입력하세요.(MAX : 11 글자)", String.class, n -> n.length() < 12 && n != null, "11 글자 이하의 내용으로 작성해주세요");
+    	String dateInput = miniUtils.next("연월일을 입력해주세요. ex) 20240930", String.class,n -> n != null && n.matches("\\d{8}"), "양식에 맞게 작성해주세요");
+    	String date = dateInput.substring(0, 4) + "/" + dateInput.substring(4, 6) + "/" + dateInput.substring(6);
+    	
+    	System.out.println("수입/지출을 입력해주세요.");
+    	String cost = miniUtils.next("ex_) 1000 또는 -1000",String.class,n -> n != null && n.matches("-?\\d+"), "제대로 작성해주세요.");
+    	
+    	if(cost.charAt(0)!='-'){
+    		income = Integer.parseInt(cost);
     	}else {
-    		cost = miniUtils.next("지출을 입력해주세요.",Integer.class,n -> n !=0 , "제대로 작성해주세요.");
-    		loadData.add(new AccountBook(++maxIdx,userId,str,0,cost,date));
+    		losses = Integer.parseInt(cost.substring(1));
     	}
     	
+    	loadData.add(new AccountBook(++maxIdx, userId, str, income, losses, date));
     	System.out.println("가계부 작성을 완료했습니다.");
-    	
     }
 	
     public void modify() {
-    	System.out.println(cal.get(Calendar.YEAR) +"/"+ (cal.get(Calendar.MONTH)+1) + " 목록");
-    	System.out.println("-----------------------------");
-    	for (int i = 0; i < tmpDetails.size(); i++) {
-    		int num = i+1;
-    		System.out.print("["+ num +" | "+ tmpDetails.get(i).getDate() + " | " + tmpDetails.get(i).getDetail() + " | " );
-			if(tmpDetails.get(i).getIncome()==0) {
-				System.out.print("-"+tmpDetails.get(i).getLosses());
-			}else {
-				System.out.print("+"+tmpDetails.get(i).getIncome());
-			}
-			System.out.println("]");
-    	}
+    	tmpDetails = new ArrayList<>();
+    	AccountBook target = null;
+    	String str = "";
+    	String cost = "";
+    	String dateInput ="";
+    	String date = "";
+    	int income = 0;
+    	int losses = 0;
     	
-    	int input = miniUtils.next("수정할 가계부 목록의 번호를 선택해주세요. (종료:0)", Integer.class, n-> 0 <= n && n <= tmpDetails.size(), "번호 선택 실패");
+    	for(AccountBook ac : loadData) {
+    		if (ac.getuserId().equals(userId)) tmpDetails.add(ac);
+    	}
+    	accountBookPrint();
+    	
+    	int idx = miniUtils.next("수정할 가계부 목록의 번호를 선택해주세요. (종료:0)", Integer.class, n-> 0 <= n && n <= tmpDetails.size(), "번호 선택 실패");
+    	if (idx-- == 0) return;
+  
+    	int input = miniUtils.next("1.내용수정 2.수입/지출수정 3.날짜수정 4.전체수정 (종료:0)", Integer.class, n-> 0 <= n && n <= 4, "번호 선택 실패");
     	if (input == 0) return;
-    	input--;
+    	
     	
     	for (AccountBook i : loadData) {
-    		
-    		if(i.getIdx() == tmpDetails.get(input).getIdx()) {
-    			int cost=0;
-    	    	String str = miniUtils.next("내용을 입력하세요.", String.class, n-> n!=null, "이부분 나중에 수정할것(정규화로 형식 맞춰야됨)");
-    	    	String date = miniUtils.next("연도, 월을 입력해주세요. ex) 2024/09/30", String.class, n-> n!=null, "이부분 나중에 수정할것(정규화로 형식 맞춰야됨)");
-    	    	int tmp = miniUtils.next("1.수입 2.지출 (종료:0)",Integer.class,n -> 0 <= n && n <= 2, "0~2사이의 숫자만 입력해주세요.");
-    	    	if (tmp == 1) {
-    	    		cost = miniUtils.next("수입을 입력해주세요.",Integer.class,n -> n !=0 , "제대로 작성해주세요.");
-    	    		i.setIncome(cost);
-    	    		i.setLosses(0);
-    	    	}else {
-    	    		cost = miniUtils.next("지출을 입력해주세요.",Integer.class,n -> n !=0 , "제대로 작성해주세요.");
-    	    		i.setIncome(0);
-    	    		i.setLosses(cost);
-    	    	}
-    	    	
-    	    	i.setDate(date);
-    	    	i.setDetail(str); 
-    	    	System.out.println("수정이 완료되었습니다.");
-    	    	break;
+    		if(i.getIdx() == tmpDetails.get(idx).getIdx()) {
+    			target = i;
+    		}
+
+    	}
+    	switch (input) {
+		case 1: 
+			str = miniUtils.next("수정할 내용을 입력하세요.(MAX : 11 글자)", String.class, n -> n.length() < 12 && n != null, "11 글자 이하의 내용으로 작성해주세요");
+			target.setDetail(str);
+			break;
+		case 2:
+			System.out.println("수입/지출을 입력해주세요.");
+	    	cost = miniUtils.next("ex_) 1000 또는 -1000",String.class,n -> n != null && n.matches("-?\\d+"), "제대로 작성해주세요.");
+	    	
+	    	if(cost.charAt(0)!='-'){
+	    		target.setIncome(Integer.parseInt(cost));
+	    	}else {
+	    		target.setLosses(Integer.parseInt(cost.substring(1)));
 	    	}
+	    	break;
+		case 3:
+			dateInput = miniUtils.next("연월일을 입력해주세요. ex) 20240930", String.class,n -> n != null && n.matches("\\d{8}"), "양식에 맞게 작성해주세요");
+	    	date = dateInput.substring(0, 4) + "/" + dateInput.substring(4, 6) + "/" + dateInput.substring(6);
+	    	target.setDate(date);
+	    	break;
+		case 4:
+			str = miniUtils.next("수정할 내용을 입력하세요.(MAX : 11 글자)", String.class, n -> n.length() < 12 && n != null, "11 글자 이하의 내용으로 작성해주세요");
+			
+			System.out.println("수입/지출을 입력해주세요.");
+	    	cost = miniUtils.next("ex_) 1000 또는 -1000",String.class,n -> n != null && n.matches("-?\\d+"), "제대로 작성해주세요.");
+
+			dateInput = miniUtils.next("연월일을 입력해주세요. ex) 20240930", String.class,n -> n != null && n.matches("\\d{8}"), "양식에 맞게 작성해주세요");
+	    	date = dateInput.substring(0, 4) + "/" + dateInput.substring(4, 6) + "/" + dateInput.substring(6);
+	    	
+	    	
+	    	target.setDetail(str);
+	    	if(cost.charAt(0)!='-'){
+	    		target.setIncome(Integer.parseInt(cost));
+	    	}else {
+	    		target.setLosses(Integer.parseInt(cost.substring(1)));
+	    	}
+	    	target.setDate(date);
+	    	break;
 		}
+    	
+    	System.out.println("수정이 완료 되었습니다.");
 	}
     	
     public void remove() {
