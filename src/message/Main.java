@@ -17,7 +17,7 @@ public class Main implements Serializable{
 ////		us.add();
 //		 
 ////		현우 code
-		MessageService me = new MessageService(1);
+		MessageService me = new MessageService("유저아이디 쓸곳");
 		
 //		me.messageLogin();
 		me.messageMenu();
