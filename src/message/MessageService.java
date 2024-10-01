@@ -92,10 +92,12 @@ public class MessageService {
       }
       
       
-      
+//		 유저아이디와 일치 시 자기 자신에게 온 메세지만 확인 가능하게 구현 -- 만드는중      
       for(int i = 0 ; i < msg.size() ; i++) {
-    	  //	for(int j = 0 ; j < -- 만드는중
-    	  //    	  if(userId == msg.get(i).getOtherId())  유저아이디와 일치 시 자기 자신에게 온 메세지만 확인 가능하게 구현 -- 만드는중
+//    	  	for(int j = 0 ; j < msg.size() ; j++) {
+    	  		
+//    	  	}
+//    	  			if(userId == msg.get(i).getOtherId()) 
          System.out.println((i+1) +". "+msg.get(i));
       }
       int input = miniUtils.next("1.쪽지삭제 2.내용보기 3.뒤로가기", Integer.class, n -> n >= 1 && n <= 3, "1~3 사이 값만 입력");
