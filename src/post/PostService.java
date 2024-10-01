@@ -17,14 +17,13 @@ public class PostService {
 
 		if (posts == null || posts.isEmpty()) {
 			posts = new ArrayList<Post>();
-			posts.add(new Post(1, "123", "제목", "히히히", "09/26"));
-			posts.add(new Post(2, "1", "제목", "호호호", "09/26"));
-			posts.add(new Post(3, "12", "제목", "허허허", "09/26"));
-			posts.add(new Post(4, "123", "제목", "후후후", "09/26"));
+			posts.add(new Post(1, "치똥이", "제목1", "히히히", "09/26"));
+			posts.add(new Post(2, "개똥이", "제목2", "호호호", "09/26"));
+			posts.add(new Post(3, "새똥이", "제목3", "허허허", "09/26"));
+			posts.add(new Post(4, "길똥이", "제목4", "후후후", "09/26"));
 
 			System.out.println("기본 데이터 추가");
 		}
-//		System.out.println(posts);
 
 		miniUtils.dataSave("./src/data/post.ser", posts);
 
@@ -68,8 +67,9 @@ public class PostService {
 
 		String title = miniUtils.next("제목", String.class);
 		String post = miniUtils.next("게시글", String.class);
+		String createDate = miniUtils.next("날짜", String.class);
 
-		posts.add(new Post(++maxIdx, userId, title, post, null));
+		posts.add(new Post(++maxIdx, userId, title, post, createDate));
 	}
 
 	// 목록보기
@@ -77,25 +77,12 @@ public class PostService {
 	public void list() {
 		System.out.println("                게시판 목록                   ");
 		System.out.println("==============================================");
-		
+
 		for (int i = 0; i < posts.size(); i++) {
 			System.out.println(posts.get(i));
 		}
 
-//		int t = miniUtils.next("몇번?", Integer.class);
-//
-//		Post post = null;
-//		for (int i = 0; i < posts.size(); i++) {
-//			if (posts.get(i).getIdx() == t) {
-//				post = posts.get(i);
-//			}
-//		}
-//		if (post == null) {
-//			System.out.println("게시글이 없습니다");
-//			return;
-//		}
-//
-		choicePost = findByIdx(miniUtils.next("아이디?", Integer.class, n -> findByIdx(n) != null, "게시글이 없습니다"));
+		choicePost = findById(miniUtils.next("아이디?", String.class, n -> findById(n) != null, "게시글이 없습니다"));
 
 		readpost(choicePost);
 	}
@@ -159,16 +146,16 @@ public class PostService {
 		System.out.println("삭제완료");
 	}
 
-//	private Post findById(int userId) {
-//		Post post = null;
-//		for (int i = 0; i < posts.size(); i++) {
-//			if (posts.get(i).getUserId() == userId) {
-//				post = posts.get(i);
-//			}
-//		}
-//
-//		return post;
-//	}
+	private Post findById(String userId) {
+		Post post = null;
+		for (int i = 0; i < posts.size(); i++) {
+			if (posts.get(i).getUserId().equals(userId)) {
+				post = posts.get(i);
+			}
+		}
+
+		return post;
+	}
 
 	private Post findByIdx(int idx) {
 		Post post = null;
