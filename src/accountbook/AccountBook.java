@@ -4,16 +4,16 @@ import java.io.Serializable;
 
 public class AccountBook implements Serializable{
     private int idx;
-    private int userIdx;
+    private String userId;
     private String detail;
     private int income;
     private int losses;
     private String date;
     
     
-    public AccountBook(int idx, int userIdx, String detail, int income, int losses, String date) {
+    public AccountBook(int idx, String userId, String detail, int income, int losses, String date) {
 		this.idx = idx;
-		this.userIdx = userIdx;
+		this.userId = userId;
 		this.detail = detail;
 		this.income = income;
 		this.losses = losses;
@@ -31,13 +31,13 @@ public class AccountBook implements Serializable{
 	}
 
 
-	public int getUserIdx() {
-		return userIdx;
+	public String getuserId() {
+		return userId;
 	}
 
 
-	public void setUserIdx(int userIdx) {
-		this.userIdx = userIdx;
+	public void setuserId(String userId) {
+		this.userId = userId;
 	}
 
 
@@ -83,8 +83,8 @@ public class AccountBook implements Serializable{
 
 	@Override
 	public String toString() {
-		return "AccountBook [idx=" + idx + ", userIdx=" + userIdx + ", detail=" + detail + ", income=" + income
-				+ ", losses=" + losses + ", date=" + date + "]";
+		return "AccountBook [idx=" + idx + ", userId=" + userId + ", detail=" + detail + ", income=" + income
+				+ ", losses=" + losses + ", date=" + date + "]\n";
 	}
 	
 
