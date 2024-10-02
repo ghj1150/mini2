@@ -8,11 +8,11 @@ public class CommentService {
 
 	private List<Comment> loadData = new ArrayList<Comment>();
 	private List<Comment> comments = new ArrayList<Comment>();
-	private int userIdx;
+	private String userIdx;
 	private int postIdx;
 	private int maxIdx;
 
-	public CommentService(int userIdx,int postIdx){
+	public CommentService(String userIdx,int postIdx){
 		this.userIdx = userIdx;
 		this.postIdx = postIdx;
 		loadData = miniUtils.dataLoad("./src/data/comment.ser");
@@ -21,27 +21,21 @@ public class CommentService {
             loadDefaultData();
             System.out.println("기본 데이터 추가");
         }
-
-		// 데이터 테스트 용
-		// System.out.println(loadData);
-		// 데이터 save
-		// miniUtils.dataSave("./src/data/comment.ser", comments);
-
 		setting();
 	}
 
 	private void loadDefaultData() {
         loadData = new ArrayList<>();
-        loadData.add(new Comment(1, "1", 1, 0, 1, null));
-        loadData.add(new Comment(2, "1-1", 1, 1, 1, null));
-        loadData.add(new Comment(3, "X", 2, 0, 2, null));
-        loadData.add(new Comment(4, "1-2", 1, 1, 2, null));
-        loadData.add(new Comment(5, "X", 2, 0, 1, null));
-        loadData.add(new Comment(6, "2", 1, 0, 1, null));
-        loadData.add(new Comment(7, "1-3", 1, 1, 1, null));
-        loadData.add(new Comment(8, "X", 2, 0, 2, null));
-        loadData.add(new Comment(9, "2-1", 1, 6, 2, null));
-        loadData.add(new Comment(10, "X", 2, 0, 1, null));
+        loadData.add(new Comment(1, "1", 1, 0, "1", null));
+        loadData.add(new Comment(2, "1-1", 1, 1, "1", null));
+        loadData.add(new Comment(3, "X", 2, 0, "2", null));
+        loadData.add(new Comment(4, "1-2", 1, 1, "2", null));
+        loadData.add(new Comment(5, "X", 2, 0, "1", null));
+        loadData.add(new Comment(6, "2", 1, 0, "1", null));
+        loadData.add(new Comment(7, "1-3", 1, 1, "1", null));
+        loadData.add(new Comment(8, "X", 2, 0, "2", null));
+        loadData.add(new Comment(9, "2-1", 1, 6, "2", null));
+        loadData.add(new Comment(10, "X", 2, 0, "1", null));
     }
 
 	public void setting(){
@@ -91,6 +85,7 @@ public class CommentService {
 				default:
 					break;
 			}
+			miniUtils.dataSave("./src/data/comment.ser", comments);
 		}
 	}
 

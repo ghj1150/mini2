@@ -8,11 +8,11 @@ public class Comment implements Serializable{
     private String comment;
     private int postIdx;
     private int parentIdx;
-	private int userId;
+	private String userId;
     private String createDate;
     // private int good; // 좋아요 클래스로 다시 만든다.
     
-    public Comment(int idx, String comment, int postIdx, int parentIdx, int userId, String createDate) {
+    public Comment(int idx, String comment, int postIdx, int parentIdx, String userId, String createDate) {
         this.idx = idx;
         this.comment = comment;
         this.postIdx = postIdx;
@@ -37,11 +37,11 @@ public class Comment implements Serializable{
 		this.comment = comment;
 	}
 
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
