@@ -57,4 +57,19 @@ public class miniUtils {
 			e.printStackTrace();
 		}
 	}
+
+	public static void markPrint(String lineMark){
+		String line = "";
+		for (int i = 0; i < 72; i++){
+			line+=lineMark;
+		}
+		System.out.println(line);
+	}
+	
+	public static void markPrint(String lineMark, String str){
+		markPrint(lineMark);
+		System.out.printf("%35s\n",str);
+		markPrint(lineMark);
+	}
+
 }

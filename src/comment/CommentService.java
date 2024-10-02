@@ -58,7 +58,7 @@ public class CommentService {
 
 		while(true){
 			view((List<String>) viewProc(true));
-			int input = miniUtils.next("1.댓글 작성 2.대댓글작성 3.댓글수정 4.댓글삭제 5.종료",Integer.class,n -> 1 <= n && n <= 5, "1~5사이의 숫자만 입력해주세요.");
+			int input = miniUtils.next("1.댓글 작성 2.대댓글작성 3.댓글수정 4.댓글삭제 (종료:0)",Integer.class,n -> 0 <= n && n < 5, "0~4사이의 숫자만 입력해주세요.");
 
 			switch (input) {
 				case 1:
@@ -79,7 +79,7 @@ public class CommentService {
 					if(tmp == null) return;
 					remove(tmp);
 					break;
-				case 5:
+				case 0:
 					System.out.println("종료");
 					return;			
 				default:
@@ -167,13 +167,11 @@ public class CommentService {
 
 	public void view(List<String> strList){
 		// 출력
-		System.out.println("==============================================");
-		System.out.println("                    댓 글                      ");
-		System.out.println("==============================================");
+		miniUtils.markPrint("=","댓 글");
 		for(String i : strList) {
 			System.out.println(i);
 		}
-		System.out.println("==============================================");
+		miniUtils.markPrint("=");
 		miniUtils.dataSave("./src/data/comment.ser", comments);
 	}
 }

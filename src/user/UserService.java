@@ -65,7 +65,7 @@ public class UserService {
 				break;
 
 		}
-		loginStart();
+		// loginStart();
 	}
 
 	public User loginStart() {

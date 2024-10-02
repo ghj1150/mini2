@@ -110,26 +110,25 @@ public class AccountBookService {
     }
     
     public void accountBookPrint() {
-    	
-    	System.out.printf("%35s",userId+"님 가계부 목록\n");
-    	System.out.println("------------------------------------------------------------------------");
+
+		miniUtils.markPrint("-", userId+"님 가계부 목록");
     	
     	if(tmpDetails.isEmpty() || tmpDetails == null) {
     		System.out.println();
     		System.out.printf("%22s",userId+"님 가계부 목록 비어있습니다.\n");
     		System.out.println();
-    		System.out.println("------------------------------------------------------------------------");
+    		miniUtils.markPrint("-");
     		return;
     	} 
     	
     	System.out.printf("[ %2s | %-20s | %8s | %8s | %8s ]\n", "번호", "내용", "수입", "지출", "날짜");
-    	System.out.println("------------------------------------------------------------------------");
+    	miniUtils.markPrint("-");
     	for (int i = 0; i < tmpDetails.size(); i++) {
     		AccountBook tmpData = tmpDetails.get(i);
     		System.out.printf("[ %04d | %-20s | %10s | %10s | %10s ]\n", 
     				i+1, tmpData.getDetail(), tmpData.getIncome(), tmpData.getLosses(), tmpData.getDate());
     	}
-    	System.out.println("------------------------------------------------------------------------");
+    	miniUtils.markPrint("-");
     }
     
     public void accountBookProc() {
@@ -149,9 +148,9 @@ public class AccountBookService {
     
 	public void printCal() {
 		
-		System.out.println("========================================================================");
+		miniUtils.markPrint("=");
 		System.out.printf("%40s\n",cal.get(Calendar.YEAR) +" / "+ String.format("%02d", (cal.get(Calendar.MONTH)+1)));
-		System.out.println("========================================================================");
+		miniUtils.markPrint("=");
 		int lastDate = cal.getActualMaximum(Calendar.DATE);
 		int startDay = cal.get(Calendar.DAY_OF_WEEK);
 		System.out.printf("%20s","");
@@ -168,7 +167,7 @@ public class AccountBookService {
 			}
 		}
 		System.out.println();
-		System.out.println("========================================================================");
+		miniUtils.markPrint("=");
 		
 	}
     
