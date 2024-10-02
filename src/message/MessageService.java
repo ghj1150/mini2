@@ -16,7 +16,7 @@ public class MessageService {
 
 //   Message msg = new Message("id", "title", "contents");
 	private List<Message> msg = new ArrayList<>();
-
+	private List<Integer> msgTmp = new ArrayList<>();
 	private String userId;
 
 	public MessageService(String userId) {
@@ -33,7 +33,7 @@ public class MessageService {
 //       System.out.println(msg);
 		// 데이터 save
 //       miniUtils.dataSave("./src/data/message.ser", msg);
-
+//      삭제하기 다시 손보기
 	}
 
 	private void msgDefaultData() {
@@ -87,7 +87,6 @@ public class MessageService {
 
 	// 쪽지함
 	public void messageBox() {
-
 		System.out.println("===================================================");
 		System.out.println("                  받은쪽지함");
 		System.out.println("===================================================");
@@ -96,22 +95,30 @@ public class MessageService {
 //		System.out.println(msg.get(1).getOtherId() + "," + userId);    // 받은사람과 본인아이디가 일치하는지 확인
 
 		if (msg.size() == 0) {
-			System.out.println("쪽지함이 비었습니다.");
+			System.out.println("쪽지함이 비었습니다.");   // 고쳐야댐
 			return;
 		}
 
-//		 * 유저아이디와 일치 시 자기 자신에게 온 메세지만 확인 가능하게 구현 -- 만드는중      
-//		for (int i = 0; i < msg.size(); i++) {
-//			if (userId == msg.get(i).getOtherId()) {
-//				System.out.println((i + 1) + ". " + msg.get(i));
-//			}
-//		}
+//		 * 유저아이디와 일치 시 자기 자신에게 온 메세지만 확인 가능하게 구현 -- 만드는중
+		
+		int cnt = 1;
+		for (int i = 0; i < msg.size(); i++) {
+			
+			if (userId.equals(msg.get(i).getOtherId())) {
+				
+				msgTmp.add(i-1);
+				System.out.println((cnt++) + ". " + msg.get(i));
+				
+			}
+		}
+		
+		
 
 		
 //		 원본
-		for (int i = 0; i < msg.size(); i++) {
-			System.out.println((i + 1) + ". " + msg.get(i));
-		}
+//		for (int i = 0; i < msg.size(); i++) {
+//			System.out.println((i + 1) + ". " + msg.get(i));
+//		}
 
 		
 		
@@ -203,11 +210,16 @@ public class MessageService {
 	public void messageDel() {
 		int tmpTarget = miniUtils.next("삭제할 쪽지의 번호를 입력 / 뒤로가기 0번", Integer.class, n -> 0 <= n && n <= msg.size(),
 				"없는 번호입니다.");
-
-		Message m = findByIdx(tmpTarget - 1);
+		if (tmpTarget == 0)
+			return;
+//		System.out.println(msgTmp); //인덱스값 확인
+		tmpTarget=msgTmp.get(tmpTarget-1);
+		
+		Message m = findByIdx(tmpTarget);
 
 		if (m != null) {
 			msg.remove(m);
+			System.out.println("");
 		} else {
 			System.out.println("없는 번호입니다.");
 			return;
@@ -248,7 +260,7 @@ public class MessageService {
 		}
 		return null;
 	}
-
+	
 	private Message findByIdx(int idx) {
 		return msg.get(idx);
 	}
