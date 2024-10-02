@@ -9,6 +9,7 @@ public class User  implements Serializable{
 	private String userPw;
 	private String name;
 	private String birth;
+	private String lostDay; 
 	private int lostMoney;
 	private int phoneNumber;
 	//생성자로 
@@ -19,6 +20,7 @@ public class User  implements Serializable{
 		this.userPw = userPw;
 		this.name = name;
 		this.birth = birth;
+		this.lostDay = "";
 		this.lostMoney = 0;
 		this.phoneNumber = 0;
 	}
@@ -64,7 +66,7 @@ public class User  implements Serializable{
 	@Override
 	public String toString() {
 		return "User [ userId=" + userId + ", userPw=" + userPw + ", name=" + name + ", birth=" + birth
-				+ ", lostMoney=" + lostMoney + ", phoneNumber=" + phoneNumber + "]";
+				+ ", lostMoney=" + lostMoney + ", phoneNumber=" + phoneNumber + "]\n";
 	}
 	
 }
