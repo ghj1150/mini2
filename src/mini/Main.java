@@ -22,17 +22,19 @@ public class Main implements Serializable{
 			User loginUser = us.getLoginUser();
 
 			while(loginUser != null){
-				int input = miniUtils.next("1.가계부 2.게시판 3.쪽지함 4.회원정보 (종료:0)", Integer.class, n-> 0 <= n && n <= 4, "번호 선택 실패");
+				AccountBookService ac = new AccountBookService(loginUser.getUserId());
+				PostService ps = new PostService(loginUser.getUserId()); 
+				MessageService me = new MessageService(loginUser.getUserId());
+
+				int input = miniUtils.next("1.가계부 2.게시판 3.쪽지함 4.회원정보", Integer.class, n-> 0 < n && n <= 4, "1~4번중에 선택해주세요.");
 				switch (input) {
 					case 1:
-						new AccountBookService(loginUser.getUserId());
+						ac.accountBookMenu();
 						break;
 					case 2:
-						PostService ps = new PostService(loginUser.getUserId()); 
 						ps.postMenu();
 						break;
 					case 3:
-						MessageService me = new MessageService(loginUser.getUserId());
 						try {
 							me.messageMenu();
 						} catch (IOException e) {
@@ -45,7 +47,6 @@ public class Main implements Serializable{
 					default:
 						break;
 				}
-    			if (input == 0) return;
 			}
 		}
 		

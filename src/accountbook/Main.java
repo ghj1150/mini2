@@ -8,7 +8,7 @@ public class Main implements Serializable{
 //
 //		승환 code
 		AccountBookService cs = new AccountBookService("이승환");
-		
+		// cs.analyze();
 //		 
 ////		주연 code
 ////		UserService us = new UserService();
