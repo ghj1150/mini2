@@ -1,6 +1,8 @@
 package post;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import mini.miniUtils;
 
@@ -24,8 +26,7 @@ public class PostService {
 
 			System.out.println("기본 데이터 추가");
 		}
-
-		miniUtils.dataSave("./src/data/post.ser", posts);
+		setting();
 
 	}
 
@@ -42,13 +43,18 @@ public class PostService {
 	public void postMenu() {
 
 		while (true) {
+			list();
 
-			int input = miniUtils.next("1.목록보기 2. 글쓰기 3. 종료하기", Integer.class, n -> n > 0 && n <= 3, "1~3사이의 값을 입력하세요");
+			int input = miniUtils.next("1. 게시글 보기 2. 글쓰기 3. 종료 ", Integer.class, n -> n > 0 && n <= 3,
+					"0~3사이의 값을 입력하세요");
 
 			switch (input) {
 			case 1:
-				list();
+				choicePost = findByIdx(miniUtils.next("몇번째글?", Integer.class, n -> findByIdx(n) != null, "게시글이 없습니다"));
+
+				readpost(choicePost);
 				break;
+
 			case 2:
 				add();
 				break;
@@ -59,6 +65,7 @@ public class PostService {
 				break;
 
 			}
+			miniUtils.dataSave("./src/data/post.ser", posts);
 		}
 	}
 
@@ -67,7 +74,10 @@ public class PostService {
 
 		String title = miniUtils.next("제목", String.class);
 		String post = miniUtils.next("게시글", String.class);
-		String createDate = miniUtils.next("날짜", String.class);
+		
+		Date now = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd");
+		String createDate = format.format(now);
 
 		posts.add(new Post(++maxIdx, userId, title, post, createDate));
 	}
@@ -82,9 +92,6 @@ public class PostService {
 			System.out.println(posts.get(i));
 		}
 
-		choicePost = findById(miniUtils.next("아이디?", String.class, n -> findById(n) != null, "게시글이 없습니다"));
-
-		readpost(choicePost);
 	}
 
 	// 게시글 내용
@@ -108,7 +115,8 @@ public class PostService {
 				switch (input) {
 				case 1:
 					modify();
-					return;
+					readpost(choicePost);
+					break;
 				case 2:
 					remove();
 					return;
@@ -119,7 +127,7 @@ public class PostService {
 				}
 			}
 			// 종료
-			int input = miniUtils.next("0. 종료하기", Integer.class, n -> n < 1, "0을 입력하세요");
+			int input = miniUtils.next("종료하시려면(0)", Integer.class, n -> n < 1, "0을 입력하세요");
 			switch (input) {
 			case 0:
 				return;
@@ -130,6 +138,7 @@ public class PostService {
 	}
 
 	// 수정
+	// 수정하기 눌렀을때 1. 제목 2. 게시글
 	public void modify() {
 
 		String title = miniUtils.next("제목", String.class);
@@ -146,16 +155,16 @@ public class PostService {
 		System.out.println("삭제완료");
 	}
 
-	private Post findById(String userId) {
-		Post post = null;
-		for (int i = 0; i < posts.size(); i++) {
-			if (posts.get(i).getUserId().equals(userId)) {
-				post = posts.get(i);
-			}
-		}
-
-		return post;
-	}
+//	private Post findById(String userId) {
+//		Post post = null;
+//		for (int i = 0; i < posts.size(); i++) {
+//			if (posts.get(i).getUserId().equals(userId)) {
+//				post = posts.get(i);
+//			}
+//		}
+//
+//		return post;
+//	}
 
 	private Post findByIdx(int idx) {
 		Post post = null;
