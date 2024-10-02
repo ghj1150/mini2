@@ -58,22 +58,26 @@ public class UserService {
 			
 			if (loginUser != null) break;
 		}
+	}
+	public User loginStart() {
 		while(loginUser != null) {
-			System.out.println("1.로그아웃 2. 탈퇴");
+			System.out.println("1.로그아웃 2. 탈퇴 (종료:0)");
 			int input1 = Integer.parseInt(scanner.nextLine());
 			switch (input1) {
 			case 1: 
 				logout();
-				break;
+				return null;
 			case 2 :
 				remove();
+				return null;
+			case 3 :
+				return loginUser;
+			default:
 				break;
-				default:
-					break;
 			}	
 		}
+		return loginUser;
 	}
-
 	public void login() {
 		System.out.println("아이디>");
 		String id = scanner.nextLine();
@@ -187,4 +191,9 @@ public class UserService {
 //		System.out.println(users);
 
 	}
+	
+	public User getLoginUser() {
+		return loginUser;
+	}
+	
 }
