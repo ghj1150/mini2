@@ -198,8 +198,17 @@ public class UserService {
 				 name =miniUtils.next("변경 할 이름 : ", String.class, str -> str.matches("^[가-힣]{2,4}"),"정확한 이름의 조건을 입력하세요");
 				loginUser.setName(name);
 				System.out.println("이름 변경이 완료 되었습니다.");
-				 lostMoney = miniUtils.next("매달 고정지출을 입력 해주세요", Integer.class, n -> n != 0, " 지출을 입력해주세요 ");
-				System.out.println("고정 지출이 등록되었습니다.");
+				lostDay = miniUtils.next("매달 고정지출값이 나가는 날짜를 입력 해주세요", String.class, n -> n != " ", " 날짜를 입력해주세요 ");
+				lostMoney = miniUtils.next("매달 고정지출값이 나가는 금액을 입력 해주세요", Integer.class, n -> n != null, " 금액을 입력해주세요 ");
+				loginUser.setLostDay(lostDay);
+				loginUser.setLostMoney(lostMoney);
+				System.out.println(" 고정 지출일이 등록되었습니다. ");
+				fixDay= miniUtils.next("매달 고정수입이 들어오는 날짜를 입력 해주세요", String.class, n -> n != null, " 날짜를 입력 해주세요");
+				fixIncome= miniUtils.next("매달 고정수입이 들어오는 금액을 입력 해주세요", Integer.class, n -> n != 0, " 금액을 입력 해주세요");
+				 loginUser.setFixDay(fixDay);
+				 loginUser.setFixIncome(fixIncome);	
+				 System.out.println(" 고정 수입이 등록되었습니다. ");
+				return;
 //				 lostDay= miniUtils.next("매달 고정수입을 입력 해주세요", Integer.class, n -> n != 0, " 수입을 입력해주세요");
 			case 0 :
 				return ;
