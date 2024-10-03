@@ -29,6 +29,7 @@ public class AccountBookService {
 		} else {
           maxIdx = 0;
 		}
+		analyze();
     }
     
     private void loadDefaultData() {
@@ -39,31 +40,44 @@ public class AccountBookService {
         loadData.add(new AccountBook(4, "이현우", "카레", 0, 1, "2024/09/30"));
         loadData.add(new AccountBook(5, "이승환", "김찌", 0, 1, "2024/10/30"));
     }
+
+
     public void analyze(){
-		List<AccountBook> analyzeList = new ArrayList<>();
+		List<AccountBook> tmpList = new ArrayList<>();
+		List<Analyze> AnalyzeList = new ArrayList<>();
+
 		String dateTmp= cal.get(Calendar.YEAR) +"/"+ String.format("%02d", (cal.get(Calendar.MONTH)+1));
 
 		for (AccountBook a : loadData){
-			analyzeList.add(a);
+			tmpList.add(a);
 		}
-		analyzeList.sort((o1,o2)->(o1.getuserId()).compareTo(o2.getuserId()));
+		tmpList.sort((o1,o2)->(o1.getuserId()).compareTo(o2.getuserId()));
 		
-
-		String beforeId="";
-		for (AccountBook a : analyzeList){
+		System.out.println(tmpList);
+		
+		
+		for (int i = 0; i < tmpList.size(); i++){
+			double expenseIncomeRate=0;
+			int totalIncome=0;
+			int totalLosses=0;
+			int remainMoney=0;
 			
-			if (beforeId==""){
-				beforeId = a.getuserId();
+			if(i==0){
+				// public Analyze(String userId, int totalIncome, int totalLosses, int remainMoney, int expenseIncomeRate) {
+				totalIncome = tmpList.get(i).getIncome();
+				totalLosses = tmpList.get(i).getLosses();
+				remainMoney = totalIncome-totalLosses;
+				expenseIncomeRate = totalLosses/totalIncome;
+
+				AnalyzeList.add(new Analyze(tmpList.get(i).getuserId(), totalIncome, totalLosses, remainMoney, expenseIncomeRate));
 				continue;
-			}else if(!beforeId.equals(a.getuserId())){
-
 			}
 			
-			if(a.getDate().substring(0,7).equals(dateTmp)) {
-			
-
+			for (Analyze a : AnalyzeList){
+				if((a.getUserId()).equals(tmpList.get(i))){
+					// 수정
+				}
 			}
-			
 		}
 
 	}

@@ -5,9 +5,9 @@ public class Analyze {
 	private int totalIncome; // 총수입 (이월)
 	private int totalLosses; // 총지출 (이번달)
 	private int remainMoney; // 남은 잔액 (총수입 - 지출)
-	private int expenseIncomeRate; // 수입대비 지출 퍼센트
+	private double expenseIncomeRate; // 수입대비 지출 퍼센트
 
-	public Analyze(String userId, int totalIncome, int totalLosses, int remainMoney, int expenseIncomeRate) {
+	public Analyze(String userId, int totalIncome, int totalLosses, int remainMoney, double expenseIncomeRate) {
 		this.userId = userId;
 		this.totalIncome = totalIncome;
 		this.totalLosses = totalLosses;
@@ -47,11 +47,11 @@ public class Analyze {
 		this.remainMoney = remainMoney;
 	}
 
-	public int getExpenseIncomeRate() {
+	public double getExpenseIncomeRate() {
 		return expenseIncomeRate;
 	}
 
-	public void setExpenseIncomeRate(int expenseIncomeRate) {
+	public void setExpenseIncomeRate(double expenseIncomeRate) {
 		this.expenseIncomeRate = expenseIncomeRate;
 	}
 
