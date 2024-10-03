@@ -39,34 +39,34 @@ public class AccountBookService {
         loadData.add(new AccountBook(4, "이현우", "카레", 0, 1, "2024/09/30"));
         loadData.add(new AccountBook(5, "이승환", "김찌", 0, 1, "2024/10/30"));
     }
-    // public void analyze(){
-	// 	List<AccountBook> analyzeList = new ArrayList<>();
-	// 	String dateTmp= cal.get(Calendar.YEAR) +"/"+ String.format("%02d", (cal.get(Calendar.MONTH)+1));
+    public void analyze(){
+		List<AccountBook> analyzeList = new ArrayList<>();
+		String dateTmp= cal.get(Calendar.YEAR) +"/"+ String.format("%02d", (cal.get(Calendar.MONTH)+1));
 
-	// 	for (AccountBook a : loadData){
-	// 		analyzeList.add(a);
-	// 	}
-	// 	analyzeList.sort((o1,o2)->(o1.getuserId()).compareTo(o2.getuserId()));
+		for (AccountBook a : loadData){
+			analyzeList.add(a);
+		}
+		analyzeList.sort((o1,o2)->(o1.getuserId()).compareTo(o2.getuserId()));
 		
 
-	// 	String beforeId="";
-	// 	for (AccountBook a : analyzeList){
+		String beforeId="";
+		for (AccountBook a : analyzeList){
 			
-	// 		if (beforeId==""){
-	// 			beforeId = a.getuserId();
-	// 			continue;
-	// 		}else if(!beforeId.equals(a.getuserId())){
+			if (beforeId==""){
+				beforeId = a.getuserId();
+				continue;
+			}else if(!beforeId.equals(a.getuserId())){
 
-	// 		}
+			}
 			
-	// 		if(a.getDate().substring(0,7).equals(dateTmp)) {
+			if(a.getDate().substring(0,7).equals(dateTmp)) {
 			
 
-	// 		}
+			}
 			
-	// 	}
+		}
 
-	// }
+	}
 
     // 메인 메뉴
     public void accountBookMenu(){
