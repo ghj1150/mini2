@@ -16,8 +16,12 @@ public class UserMain implements Serializable{
 ////		cs.commentView(1);
 //		 
 ////		주연 code
-//		UserService us = new UserService();
-//		us.UserStart();
+		UserService us = new UserService();
+		
+		
+		
+		
+		us.UserStart();
 //		 
 ////		현우 code
 ////		MessageService me = new MessageService();

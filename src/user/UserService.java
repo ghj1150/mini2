@@ -42,35 +42,35 @@ public class UserService {
 
 //userid, pw, name, birth
 	public void UserStart() {
+		System.out.println(users); // 나중에 지울 코드
 		while (true) {
-			System.out.println(users); // 나중에 지울 코드
-
-			System.out.println("1. 로그인 2. 회원가입 3.비밀번호찾기");
+			miniUtils.markPrint("=", "로그인");
+			System.out.println("1.로그인 2.회원가입 3.비밀번호찾기 (종료:0)");
 			int input = Integer.parseInt(scanner.nextLine());
 			switch (input) {
 			case 1:
 				login();
 				break;
+				
 			case 2:
 				add();
 				break;
 			case 3:
 				findUser();
 				break;
+			case 0:
+				System.out.println("종료 되었습니다.");
+				return;
 			default:
 				break;
 			}
-
-			if (loginUser != null)
-				break;
-
+			if (loginUser != null)break;
 		}
-		loginStart();
+
 	}
 
 	public User loginStart() {
 		while (loginUser != null) {
-			System.out.println(users);
 			System.out.println("1.로그아웃 2. 탈퇴 3.회원정보수정 (종료:0)");
 			int input1 = Integer.parseInt(scanner.nextLine());
 			switch (input1) {
@@ -101,14 +101,15 @@ public class UserService {
 			return;
 		}
 		System.out.println("비밀번호 >");
-
 		String pw = scanner.nextLine();
 		this.loginUser = u;
 
-		if (pw == loginUser.getUserPw()) {
+		if (!pw.equals(loginUser.getUserPw()) ) {
 			System.out.println("입력한 회원의 비밀번호가 틀렸습니다.");
+			this.loginUser =null;
+			return;
 		}
-		System.out.println("로그인 성공");
+		System.out.println(loginUser.getName() + "님 환영합니다!");
 	}
 
 	public void logout() {
