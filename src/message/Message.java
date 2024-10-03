@@ -113,7 +113,7 @@ public class Message implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "[ 보낸사람ID = " + userId + ",  받은사람ID = "+ otherId +  ", 제목 = " + title + ", 보낸날짜 = " + date +" ]" ;
+		return "[ 보낸사람ID = " + userId + ",  받은사람ID = "+ otherId +  ", 제목 = " + title + ", 보낸날짜 = " + date +" ]\n" ;
 	}
 	 
 	 

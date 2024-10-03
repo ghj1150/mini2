@@ -16,7 +16,8 @@ public class MessageService {
 
 //   Message msg = new Message("id", "title", "contents");
 	private List<Message> msg = new ArrayList<>();
-	private List<Integer> msgTmp = new ArrayList<>();
+	private List<Message> msgTmpSend = new ArrayList<>();
+	private List<Message> msgTmpRep = new ArrayList<>();
 	private String userId;
 
 	public MessageService(String userId) {
@@ -60,10 +61,9 @@ public class MessageService {
 	public void messageMenu() throws FileNotFoundException, IOException {
 
 		while (true) {
+			miniUtils.markPrint("-", "메뉴");
 
-			int input = miniUtils.next(
-					"===================================================\n                      메뉴\n"
-							+ "===================================================\n" + "1.받은쪽지함 2.보낸쪽지함 3.보내기 0.나가기",
+			int input = miniUtils.next("1.받은쪽지함 2.보낸쪽지함 3.보내기 0.나가기",
 					Integer.class, n -> n >= 0 && n <= 3, "0~3 사이 값만 입력");
 			switch (input) {
 			case 1:
@@ -87,31 +87,33 @@ public class MessageService {
 
 	// 쪽지함
 	public void messageBox() {
-		System.out.println("===================================================");
-		System.out.println("                  받은쪽지함");
-		System.out.println("===================================================");
+		miniUtils.markPrint("-", "받은쪽지함");
 
+System.out.println(msg);
 		
 //		System.out.println(msg.get(1).getOtherId() + "," + userId);    // 받은사람과 본인아이디가 일치하는지 확인
 
-		if (msg.size() == 0) {
-			System.out.println("쪽지함이 비었습니다.");   // 고쳐야댐
-			return;
-		}
+		// if (msg.size() == 0) {
+		// 	System.out.println("쪽지함이 비었습니다.");   // 고쳐야댐
+		// 	return;
+		// }
 
 //		 * 유저아이디와 일치 시 자기 자신에게 온 메세지만 확인 가능하게 구현 -- 만드는중
-		
+		msgTmpRep = new ArrayList<>();
 		int cnt = 1;
 		for (int i = 0; i < msg.size(); i++) {
 			
 			if (userId.equals(msg.get(i).getOtherId())) {
 				
-				msgTmp.add(i-1);
+				msgTmpRep.add(msg.get(i));
 				System.out.println((cnt++) + ". " + msg.get(i));
 				
 			}
 		}
-		
+		if (msgTmpRep.size() == 0) {
+			System.out.println("쪽지함이 비었습니다.");   // 고쳐야댐
+			return;
+		}
 		
 
 		
@@ -131,7 +133,7 @@ public class MessageService {
 			messageDel();
 			break;
 		case 2:
-			messageCon();
+			messageCon(true);
 			break;
 		case 0:
 			return;
@@ -144,41 +146,43 @@ public class MessageService {
 
 	// 보낸 쪽지함
 	public void sentBox() {
-		System.out.println("===================================================");
-		System.out.println("                  보낸쪽지함");
-		System.out.println("===================================================");
+		miniUtils.markPrint("-", "보낸쪽지함");
 
 		
 //		System.out.println(msg.get(1).getOtherId() + "," + userId);    // 받은사람과 본인아이디가 일치하는지 확인
 
-		if (msg.size() == 0) {
-			System.out.println("쪽지함이 비었습니다.");
-			return;
-		}
+
 
 
 		// 원본
-		for (int i = 0; i < msg.size(); i++) {
-			System.out.println((i + 1) + ". " + msg.get(i));
-		}
+		// for (int i = 0; i < msg.size(); i++) {
+			// System.out.println((i + 1) + ". " + msg.get(i));
+		// }
 
-		
+		msgTmpSend = new ArrayList<>();
 		//	조건 만드는중
-//		for (int i = 0; i < msg.size(); i++) {
-//			if (userId == msg.get(i).getUserId()) {
-//				System.out.println((i + 1) + ". " + msg.get(i));
-//			}
-//		}
-
+		int cnt = 1;
+		for (int i = 0; i < msg.size(); i++) {
+			
+			if (userId.equals(msg.get(i).getUserId())) {
+				
+				msgTmpSend.add(msg.get(i));
+				System.out.println((cnt++) + ". " + msg.get(i));
+				
+			}
+	
+		}
+		if (msgTmpSend.size() == 0) {
+			System.out.println("쪽지함이 비었습니다.");   // 고쳐야댐
+			return;
+		}
 		
 		
-		int input = miniUtils.next("1.쪽지삭제 2.내용보기 0.뒤로가기", Integer.class, n -> n >= 0 && n <= 2, "0~2 사이 값만 입력");
+		
+		int input = miniUtils.next("1.내용보기 0.뒤로가기", Integer.class, n -> n >= 0 && n <= 1, "0~1 사이 값만 입력");
 		switch (input) {
 		case 1:
-			messageDel();
-			break;
-		case 2:
-			messageCon();
+			messageCon(false);
 			break;
 		case 0:
 			return;
@@ -195,6 +199,7 @@ public class MessageService {
 
 		String targetId = miniUtils.next("받는사람 아이디 입력", String.class, n -> n != null, "없는 id입니다.");
 		String title = miniUtils.next("제목", String.class);
+		// String contents = miniUtils.next("보낼 내용", String.class);
 		String contents = miniUtils.next("보낼 내용", String.class);
 		Date today = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm:ss a");
@@ -208,46 +213,83 @@ public class MessageService {
 
 	// 메세지 삭제
 	public void messageDel() {
-		int tmpTarget = miniUtils.next("삭제할 쪽지의 번호를 입력 / 뒤로가기 0번", Integer.class, n -> 0 <= n && n <= msg.size(),
-				"없는 번호입니다.");
-		if (tmpTarget == 0)
-			return;
-//		System.out.println(msgTmp); //인덱스값 확인
-		tmpTarget=msgTmp.get(tmpTarget-1);
-		
-		Message m = findByIdx(tmpTarget);
 
-		if (m != null) {
-			msg.remove(m);
-			System.out.println("");
-		} else {
-			System.out.println("없는 번호입니다.");
-			return;
-		}
+		int tmpTarget = miniUtils.next("삭제할 쪽지의 번호를 입력 / 뒤로가기 0번", Integer.class, n -> 0 <= n && n <= msgTmpRep.size(),
+				"없는 번호입니다.");
+		if (tmpTarget == 0) return;
+//		System.out.println(msgTmp); //인덱스값 확인
+		
+		// for (Message m : msg){
+
+		// 	if((m.getIdx()).contains((msgTmp.get(tmpTarget)).getIdx())){
+
+		// 	}
+		// }
+		msg.remove(msgTmpRep.get(tmpTarget-1));
+	System.out.println("삭제");		
+		
+
+
+
+
+		// System.out.println(msg.contains(tmpTarget));	
+		// System.out.println("dddddddd");
+		// if (m != null && msg.contains(tmpTarget)) {
+		// 	msg.remove(tmpTarget.get());
+		// 	System.out.println("삭제완료");
+		// } else {
+		// 	System.out.println("없는 번호입니다.");
+		// 	return;
+		// }
 
 	}
 
-	// 내용보기
-	public void messageCon() {
-		int tmpTarget = miniUtils.next("확인할 쪽지의 번호를 입력 / 뒤로가기 0번", Integer.class, n -> 0 <= n && n <= msg.size(),
-				"없는 번호입니다.");
-		if (tmpTarget == 0)
-			return;
-		Message m = findByIdx(tmpTarget - 1);
-
-		if (m == null) {
-			System.out.println("없는 번호입니다.");
-			return;
-		}
-		System.out.println("보낸사람: " + m.getUserId() + "/ 제목: " + m.getTitle());
-		
-		{
-		for(int i = 0; i < m.getContents().length();i++ ) {
-			if((i % 10) == 0) {
-				System.out.println();
+	// 내용보기 -- 고쳐야댐
+	public void messageCon(boolean ck) {
+		List<Message> msgTmp = new ArrayList<>();
+		if(ck){
+			//받은 메시지함
+			for (Message m : msgTmpRep){
+				msgTmp.add(m);
+			}
+		}else{
+			//보낸메시지함
+			for (Message m : msgTmpSend){
+				msgTmp.add(m);
 			}
 		}
-		System.out.println("보낸 내용: " + m.getContents());
+		int tmpTarget = miniUtils.next("확인할 쪽지의 번호를 입력 / 뒤로가기 0번", Integer.class, n -> 0 <= n && n <= msgTmp.size(),
+				"없는 번호입니다.");
+		
+				if (tmpTarget == 0)
+			return;
+
+			// msgTmp = new ArrayList<>();
+			// for (int i = 0; i < msg.size(); i++) {
+				
+			// 	if (userId.equals(msg.get(i).getOtherId())) {
+					
+			// 		// msgTmp.add(msg.get(i));
+			// 		System.out.println( msg.get(i)); 
+					
+			// 	}
+			// }
+			System.out.println("보낸사람: " + msgTmp.get(tmpTarget-1).getUserId() + "/ 제목: " + msgTmp.get(tmpTarget-1).getTitle());
+		// Message m = findByIdx(tmpTarget - 1);
+
+		// if (m == null) {
+		// 	System.out.println("없는 번호입니다.");
+		// 	return;
+		// }
+
+		
+		{
+		// for(int i = 0; i < m.getContents().length();i++ ) {
+		// 	if((i % 10) == 0) {
+		// 		System.out.println();
+		// 	}
+		// }   -- 줄바꾸기 만드는중
+		System.out.println("보낸 내용: " + msgTmp.get(tmpTarget-1).getContents());
 		}
 	}
 
