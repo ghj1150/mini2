@@ -58,7 +58,7 @@ public class Analyze {
 	@Override
 	public String toString() {
 		return "Analyze [userId=" + userId + ", totalIncome=" + totalIncome + ", totalLosses=" + totalLosses
-				+ ", remainMoney=" + remainMoney + ", expenseIncomeRate=" + expenseIncomeRate + "]";
+				+ ", remainMoney=" + remainMoney + ", expenseIncomeRate=" + expenseIncomeRate + "]\n";
 	}
 
 }
