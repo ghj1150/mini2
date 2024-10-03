@@ -11,22 +11,21 @@ public class User  implements Serializable{
 	private String birth;
 	private String lostDay; 
 	private int lostMoney;
-	private int phoneNumber;
-	//생성자로 
-	public User( String userId, String userPw, String name, String birth) {
-		super();
+	private int fixIncome;
+	private String fixDay;
 	
+	
+	public User(String userId, String userPw, String name, String birth) {
+		super();
 		this.userId = userId;
 		this.userPw = userPw;
 		this.name = name;
 		this.birth = birth;
 		this.lostDay = "";
 		this.lostMoney = 0;
-		this.phoneNumber = 0;
+		this.fixIncome = 0;
+		this.fixDay = "";
 	}
-
-	
-	
 	public String getUserId() {
 		return userId;
 	}
@@ -51,22 +50,36 @@ public class User  implements Serializable{
 	public void setBirth(String birth) {
 		this.birth = birth;
 	}
+	public String getLostDay() {
+		return lostDay;
+	}
+	public void setLostDay(String lostDay) {
+		this.lostDay = lostDay;
+	}
 	public int getLostMoney() {
 		return lostMoney;
 	}
 	public void setLostMoney(int lostMoney) {
 		this.lostMoney = lostMoney;
 	}
-	public int getPhoneNumber() {
-		return phoneNumber;
+	public int getFixIncome() {
+		return fixIncome;
 	}
-	public void setPhoneNumber(int phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setFixIncome(int fixIncome) {
+		this.fixIncome = fixIncome;
 	}
+	public String getFixDay() {
+		return fixDay;
+	}
+	public void setFixDay(String fixDay) {
+		this.fixDay = fixDay;
+	}
+	
 	@Override
 	public String toString() {
-		return "User [ userId=" + userId + ", userPw=" + userPw + ", name=" + name + ", birth=" + birth
-				+ ", lostMoney=" + lostMoney + ", phoneNumber=" + phoneNumber + "]\n";
+		return "User [userId=" + userId + ", userPw=" + userPw + ", name=" + name + ", birth=" + birth + ", lostDay="
+				+ lostDay + ", lostMoney=" + lostMoney + ", fixIncome=" + fixIncome + ", fixDay=" + fixDay + "]\n";
 	}
+	
 	
 }

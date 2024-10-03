@@ -70,6 +70,7 @@ public class UserService {
 
 	public User loginStart() {
 		while (loginUser != null) {
+			System.out.println(users);
 			System.out.println("1.로그아웃 2. 탈퇴 3.회원정보수정 (종료:0)");
 			int input1 = Integer.parseInt(scanner.nextLine());
 			switch (input1) {
@@ -81,6 +82,7 @@ public class UserService {
 				return null;
 			case 3:
 				modify();
+				break;
 			case 0:
 				return loginUser;
 			default:
@@ -151,7 +153,9 @@ public class UserService {
 		String pw = "";
 		String name = "";
 		int lostMoney = 0;
-		int lostDay = 0;
+		String lostDay = "";
+		String fixDay = "";
+		int fixIncome = 0;
 		
 		while (true) {
 			System.out.println("1.비밀번호수정 2.이름수정 3.고정지출수정 4.고정수입수정 5.전체수정 (종료:0)");
@@ -168,10 +172,25 @@ public class UserService {
 				System.out.println("이름 변경이 완료 되었습니다.");
 				return ;
 			case 3: 
-				 lostMoney = miniUtils.next("매달 고정지출을 입력 해주세요", Integer.class, n -> n != 0, " 지출을 입력해주세요 ");
-				System.out.println("고정 지출이 등록되었습니다.");
+				lostDay = miniUtils.next("매달 고정지출값이 나가는 날짜를 입력 해주세요", String.class, n -> n != " ", " 날짜를 입력해주세요 ");
+				lostMoney = miniUtils.next("매달 고정지출값이 나가는 금액을 입력 해주세요", Integer.class, n -> n != null, " 금액을 입력해주세요 ");
+				
+				loginUser.setLostDay(lostDay);
+				loginUser.setLostMoney(lostMoney);
+				
+				System.out.println(" 고정 지출일이 등록되었습니다. ");
+				return;
 			case 4:
-				 lostDay= miniUtils.next("매달 고정수입을 입력 해주세요", Integer.class, n -> n != 0, " 수입을 입력해주세요");
+				fixDay= miniUtils.next("매달 고정수입이 들어오는 날짜를 입력 해주세요", String.class, n -> n != null, " 날짜를 입력 해주세요");
+				fixIncome= miniUtils.next("매달 고정수입이 들어오는 금액을 입력 해주세요", Integer.class, n -> n != 0, " 금액을 입력 해주세요");
+				 
+				 loginUser.setFixDay(fixDay);
+				 loginUser.setFixIncome(fixIncome);			 
+				 
+				 
+				 System.out.println(" 고정 수입이 등록되었습니다. ");
+				
+				return;
 			case 5:	
 				pw = miniUtils.next("변경 할 비밀번호 : ", String.class, n -> n != null, " 입력하신 비밀번호는 형식에 맞지 않습니다. ");
 				loginUser.setUserPw(pw);
@@ -181,7 +200,7 @@ public class UserService {
 				System.out.println("이름 변경이 완료 되었습니다.");
 				 lostMoney = miniUtils.next("매달 고정지출을 입력 해주세요", Integer.class, n -> n != 0, " 지출을 입력해주세요 ");
 				System.out.println("고정 지출이 등록되었습니다.");
-				 lostDay= miniUtils.next("매달 고정수입을 입력 해주세요", Integer.class, n -> n != 0, " 수입을 입력해주세요");
+//				 lostDay= miniUtils.next("매달 고정수입을 입력 해주세요", Integer.class, n -> n != 0, " 수입을 입력해주세요");
 			case 0 :
 				return ;
 			default:
@@ -200,20 +219,17 @@ public class UserService {
 	}
 
 	public void remove() {
-		users.remove(loginUser);
-		logout();
-
-//		
 		String idTmp = miniUtils.next("아이디", String.class, n -> findById(n) != null, "입력한 아이디는 존재하지 않습니다.");
 
 		if (idTmp != null) {
 			User user = findById(idTmp);
 			users.remove(user);
+			users.remove(loginUser);
 			System.out.println("회원탈퇴 완료되었습니다.");
 		} else {
 			System.out.println("회원정보를 정확히 입력하세요.");
 		}
-		System.out.println(users);
+//		System.out.println(users);
 	}
 
 	private User findById(String userid) {
