@@ -65,7 +65,7 @@ public class Post implements Serializable {
 	}
 
 	public String toString() {
-		return String.format("%4s %10s %10s", userId, title, createDate);
+		return String.format("%2d %5s %10s %13s", idx, userId, title, createDate);
 	}
 
 }
