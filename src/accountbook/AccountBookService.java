@@ -10,7 +10,7 @@ public class AccountBookService {
 
 	private List<AccountBook> loadData = new ArrayList<>();
 	private List<AccountBook> tmpDetails = new ArrayList<>();
-	// private List<AccountBook> rankList = new ArrayList<>();
+	 private List<Analyze> rankList = new ArrayList<>();
 	private Calendar cal = Calendar.getInstance();
 	private String userId;
 	private int maxIdx;
@@ -47,53 +47,41 @@ public class AccountBookService {
 
      public void analyze(){
 	 	List<AccountBook> tmpList = new ArrayList<>();
-	 	List<Analyze> analyzeList = new ArrayList<>();
+//	 	List<Analyze> analyzeList = new ArrayList<>();
+	 	
 	 	String dateTmp= cal.get(Calendar.YEAR) +"/"+ String.format("%02d", (cal.get(Calendar.MONTH)+1)); //현재 달력 날짜
 	 	for (int i=0; i < loadData.size(); i++){
 	 		if (dateTmp.equals(loadData.get(i).getDate().substring(0, 7))){
 	 			tmpList.add(loadData.get(i));
 	 		}
 	 	}
+	 	
 	 	if(tmpList.isEmpty() || tmpList == null) return;
 	 	tmpList.sort((o1,o2)->(o1.getuserId()).compareTo(o2.getuserId()));
-		
-		System.out.println(tmpList);
-		
 		
 		int cnt = -1;
 	 	for (int i = 0; i < tmpList.size(); i++){
 	 		int totalIncome=0;
 	 		int totalLosses=0;
 	 		int remainMoney=0;
-	 		double expenseIncomeRate=0;
-
-	 		System.out.print("시작 : "+tmpList.get(i));
+	 		int expenseIncomeRate=0;
 	 		
 	 		
 	 		
-	 		
-	 		
+	 		 
 	 		
 	 		if(i!=0 && tmpList.get(i).getuserId().equals(tmpList.get(i-1).getuserId())){
+	 			Analyze tmp = rankList.get(cnt);  
 	 			
-	 			analyzeList.get(cnt).setTotalIncome(analyzeList.get(cnt).getTotalIncome() + tmpList.get(i).getIncome());
-	 			analyzeList.get(cnt).setTotalLosses(analyzeList.get(cnt).getTotalLosses() + tmpList.get(i).getLosses());
-	 			analyzeList.get(cnt).setRemainMoney(analyzeList.get(cnt).getTotalIncome() - analyzeList.get(cnt).getTotalLosses());
+	 			tmp.setTotalIncome(tmp.getTotalIncome() + tmpList.get(i).getIncome());
+	 			tmp.setTotalLosses(tmp.getTotalLosses() + tmpList.get(i).getLosses());
+	 			tmp.setRemainMoney(tmp.getTotalIncome() - tmp.getTotalLosses());
 	 			
-	 			System.out.println("Zzzzzzzzzzzzzz");
-	 			System.out.println(analyzeList.get(cnt));
-	 			if(analyzeList.get(cnt).getTotalIncome()==0){
-	 				System.out.println("111");
-	 				analyzeList.get(cnt).setExpenseIncomeRate(analyzeList.get(cnt).getRemainMoney());
+	 			if(tmp.getTotalIncome()==0){
+	 				tmp.setExpenseIncomeRate(tmp.getRemainMoney());
 	 			}else{
-	 				System.out.println("222");
-	 				System.out.println(analyzeList.get(cnt).getRemainMoney());
-	 				System.out.println(analyzeList.get(cnt).getTotalIncome());
-	 				System.out.println(analyzeList.get(cnt).getRemainMoney() / analyzeList.get(cnt).getTotalIncome());
-	 				analyzeList.get(cnt).setExpenseIncomeRate(analyzeList.get(cnt).getRemainMoney() / analyzeList.get(cnt).getTotalIncome());
+	 				tmp.setExpenseIncomeRate( (int)((tmp.getRemainMoney() / (double)tmp.getTotalIncome())*100) );
 	 			}
-	 			System.out.println(analyzeList.get(cnt));
-	 			System.out.println("Zzzzzzzzzzzzzz");
 	 			
 	 		}else{
 	 			totalIncome = tmpList.get(i).getIncome();
@@ -101,22 +89,39 @@ public class AccountBookService {
 	 			remainMoney = totalIncome-totalLosses;
 	 			
 	 			if(totalIncome==0){
-	 				expenseIncomeRate = remainMoney/1;
+	 				expenseIncomeRate = (int)(remainMoney/1);
 	 			}else{
-	 				expenseIncomeRate = remainMoney/totalIncome;
+	 				expenseIncomeRate = (int)((remainMoney / (double)totalIncome)*100);
 	 			}
 
-	 			analyzeList.add(new Analyze(tmpList.get(i).getuserId(), totalIncome, totalLosses, remainMoney, expenseIncomeRate));
+	 			rankList.add(new Analyze(tmpList.get(i).getuserId(), totalIncome, totalLosses, remainMoney, expenseIncomeRate));
 	 			cnt++;
 	 			continue;
 	 		}
-
-
-
 	 	}
-	 	System.out.println(analyzeList);
+	 	analyzeRankPrint();
+	 	
 	 }
-
+     
+     public void analyzeRankPrint(){
+    	 
+//    	 if()
+    	 
+    	 rankList.sort((o1,o2)->(o2.getExpenseIncomeRate() - o1.getExpenseIncomeRate()));
+    	 System.out.println(rankList);
+    	 miniUtils.markPrint("=", "★저축 랭킹★");
+    	 
+    	 for(int i =0; i< rankList.size(); i++) {
+    		 String name = "";
+    		 if(i==0) {
+    			 name = "🜲"+rankList.get(i).getUserId()+"🜲";
+    		 }else {
+    			 name = rankList.get(i).getUserId()+"   ";
+    		 }
+    		 System.out.printf("%20d. %10s    %15d %10s\n",i+1,name, rankList.get(i).getExpenseIncomeRate(), "%" );
+    	 }
+     }
+     
     // 메인 메뉴
     public void accountBookMenu(){
 		while(true){
