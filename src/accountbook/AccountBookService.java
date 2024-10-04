@@ -4,6 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import static java.util.Calendar.*;
+
+import java.lang.reflect.Array;
+
 import mini.miniUtils;
 import user.User;
 
@@ -99,13 +102,17 @@ public class AccountBookService {
 	 }
      
      public void analyzeRankPrint(){
-    	 miniUtils.markPrint("=", "★저축 랭킹★");
+    	 miniUtils.markPrint("=", "★ 저축 랭킹 ★");
     	 if(rankList==null || rankList.isEmpty()) {
     		 System.out.printf("%30s","이번달 랭킹이 없습니다." );
     		 return;
     	 }    	 
-    	 rankList.sort((o1,o2)->(o2.getExpenseIncomeRate() - o1.getExpenseIncomeRate()));    	 
-    	 
+
+
+    	 rankList.sort((o1,o2)->(o2.getExpenseIncomeRate() - o1.getExpenseIncomeRate()));    
+
+    	 List<String> strList = test("순위","L아이디","저축비율","test");
+
     	 for(int i =0; i< rankList.size(); i++) {
     		 String userId = "";
     		 if(i==0) {
@@ -113,12 +120,54 @@ public class AccountBookService {
     		 }else {
 				userId = rankList.get(i).getUserId()+"   ";
     		 }
-    		 System.out.printf("%20d. %15s %15d %15s\n",i+1,userId, rankList.get(i).getExpenseIncomeRate(), "%" );
+			 String test= "";
+			 for(String j : strList){
+				test += j;
+			 }
+
+    		 System.out.printf(test,i+1+"",userId, rankList.get(i).getExpenseIncomeRate()+"", "%" );
+			 System.out.println();
     	 }
     	 
     	 miniUtils.markPrint("-");
      }
-     
+
+
+    public List<String> test(String... strArray){
+		List<String> strList = Arrays.asList(strArray);
+		List<String> returnList = new ArrayList<>();
+		int tmpInterval = 0;
+
+		for (String str : strList){
+			if(str.substring(0,1)=="L") continue;
+			tmpInterval += str.length()+2;
+		}
+
+		int maxInterval = 72 - tmpInterval - strList.size() - 1;
+
+		for (String str : strList){
+
+			String print = (str==strList.get(0)) ? "%-" : "|%-";
+
+			if(str.substring(0,1).equals("L")) {
+				System.out.printf(print+maxInterval+"s"," "+str.substring(1)+" ");
+				returnList.add(print+maxInterval+"s");
+			}else {
+				System.out.printf(print+str.length()+"s"," "+str+" ");
+				returnList.add(print+str.length()+"s");
+			}
+		}
+		System.out.println();
+
+		return returnList;
+
+	}
+
+
+
+
+
+
     // 메인 메뉴
     public void accountBookMenu(){
 		while(true){
