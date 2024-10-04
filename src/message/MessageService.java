@@ -262,7 +262,8 @@ public class MessageService {
 		
 		String cont = msgTmp.get(tmpTarget - 1).getContents();
 		int beforidx = 0;
-		
+		miniUtils.markPrint("=");
+		System.out.print("보낸 내용: ");
 		for(int i = 0; i < msgTmp.get(tmpTarget - 1).getContents().length(); i += 25) {
 			
 			
@@ -276,8 +277,8 @@ public class MessageService {
 		}
 //		contents = t;
 		{
-			miniUtils.markPrint("=");
-			System.out.println("보낸 내용: " + msgTmp.get(tmpTarget - 1).getContents());
+//			miniUtils.markPrint("=");
+//			System.out.println("보낸 내용: " + msgTmp.get(tmpTarget - 1).getContents());
 //			System.out.println("보낸 내용: " + t);
 			miniUtils.markPrint("=");
 		}
