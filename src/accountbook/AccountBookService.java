@@ -47,7 +47,6 @@ public class AccountBookService {
 
      public void analyze(){
 	 	List<AccountBook> tmpList = new ArrayList<>();
-//	 	List<Analyze> analyzeList = new ArrayList<>();
 	 	
 	 	String dateTmp= cal.get(Calendar.YEAR) +"/"+ String.format("%02d", (cal.get(Calendar.MONTH)+1)); //현재 달력 날짜
 	 	for (int i=0; i < loadData.size(); i++){
@@ -104,12 +103,13 @@ public class AccountBookService {
 	 }
      
      public void analyzeRankPrint(){
-    	 
-//    	 if()
-    	 
-    	 rankList.sort((o1,o2)->(o2.getExpenseIncomeRate() - o1.getExpenseIncomeRate()));
-    	 System.out.println(rankList);
+//    	 rankList = null;
     	 miniUtils.markPrint("=", "★저축 랭킹★");
+    	 if(rankList==null || rankList.isEmpty()) {
+    		 System.out.printf("%30s","이번달 랭킹이 없습니다." );
+    		 return;
+    	 }    	 
+    	 rankList.sort((o1,o2)->(o2.getExpenseIncomeRate() - o1.getExpenseIncomeRate()));    	 
     	 
     	 for(int i =0; i< rankList.size(); i++) {
     		 String name = "";
@@ -118,8 +118,10 @@ public class AccountBookService {
     		 }else {
     			 name = rankList.get(i).getUserId()+"   ";
     		 }
-    		 System.out.printf("%20d. %10s    %15d %10s\n",i+1,name, rankList.get(i).getExpenseIncomeRate(), "%" );
+    		 System.out.printf("%20d. %15s %15d %15s\n",i+1,name, rankList.get(i).getExpenseIncomeRate(), "%" );
     	 }
+    	 
+    	 miniUtils.markPrint("-");
      }
      
     // 메인 메뉴

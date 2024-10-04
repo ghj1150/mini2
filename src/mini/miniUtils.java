@@ -17,7 +17,7 @@ public class miniUtils {
 		} else if (clazz == String.class) {
 			return clazz.cast(str);
 		} else {
-			throw new RuntimeException("잘못된 타입");
+			throw new RuntimeException("잘못된 타입입니다.");
 		}
 	}
     // 입력 반복
@@ -31,7 +31,7 @@ public class miniUtils {
                     throw new IllegalArgumentException(errMsg);
                 }
             } catch (NumberFormatException iae) {
-                System.out.println("올바른 숫자를 입력해라");
+                System.out.println("올바른 숫자를 입력해주세요.");
             } catch (IllegalArgumentException iae) {
                 System.out.println(iae.getMessage());
             }
@@ -44,7 +44,7 @@ public class miniUtils {
 		 try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(str))) {
 			 	return (T) ois.readObject();
 			} catch (FileNotFoundException e) {
-				System.out.println("파일 검색 실패");
+//				System.out.println("파일 검색 실패");
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
