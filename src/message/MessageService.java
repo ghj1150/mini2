@@ -24,10 +24,7 @@ public class MessageService {
 		this.userId = userId;
 		msg = miniUtils.dataLoad("./src/data/message.ser");
 		if (msg == null || msg.isEmpty()) {
-			System.out.println(msg);
-			msgDefaultData();
-			System.out.println(msg);
-			System.out.println("메세지 데이터 추가");
+//			msgDefaultData();
 		}
 //      setting();
 		// 데이터 테스트 용
@@ -187,7 +184,18 @@ public class MessageService {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm:ss a");
 		String date = format.format(today);
 		String check = "안읽음";
-
+		
+		int maxLen = 25;
+		String t = "";
+//		for(int startIndex = 0; startIndex < contents.length() ; startIndex += maxLen) {
+//			t+= contents.length() > startIndex + maxLen ? contents.substring(startIndex, Math.min(startIndex, maxLen,
+//					contents.length()))
+//		}
+		
+//		contents = contents.substring(0,contents.length())
+		
+//				System.out.printf("[ %2s | %-20s | %8s | %8s | %8s ]\n", "번호", "내용", "수입", "지출", "날짜"); 양식
+		
 		msg.add(new Message(1, userId, targetId, title, contents, date, check));
 
 		System.out.println("전송완료");
