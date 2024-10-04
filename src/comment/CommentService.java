@@ -19,7 +19,7 @@ public class CommentService {
 
 		if (loadData == null || loadData.isEmpty()) {
             loadDefaultData();
-            System.out.println("기본 데이터 추가");
+//            System.out.println("기본 데이터 추가");
         }
 		setting();
 	}
@@ -50,14 +50,14 @@ public class CommentService {
         } else {
             maxIdx = 0; // 댓글이 없는경우
         }
-		commentMenu();
+		view((List<String>) viewProc(true));
 	}
 
 	public void commentMenu(){
 		Comment tmp;
 
 		while(true){
-			view((List<String>) viewProc(true));
+//			view((List<String>) viewProc(true));
 			int input = miniUtils.next("1.댓글 작성 2.대댓글작성 3.댓글수정 4.댓글삭제 (종료:0)",Integer.class,n -> 0 <= n && n < 5, "0~4사이의 숫자만 입력해주세요.");
 
 			switch (input) {

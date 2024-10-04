@@ -22,7 +22,7 @@ public class AccountBookService {
 
 		if (loadData == null || loadData.isEmpty()) {
             loadDefaultData();
-            System.out.println("기본 데이터 추가");
+//            System.out.println("기본 데이터 추가");
         }
 		if (!loadData.isEmpty()) {
 			maxIdx = loadData.get(loadData.size()-1).getIdx();
@@ -233,6 +233,7 @@ public class AccountBookService {
 		miniUtils.markPrint("=");
 		System.out.printf("%40s\n",cal.get(Calendar.YEAR) +" / "+ String.format("%02d", (cal.get(Calendar.MONTH)+1)));
 		miniUtils.markPrint("=");
+		System.out.println("\n");
 		int lastDate = cal.getActualMaximum(Calendar.DATE);
 		int startDay = cal.get(Calendar.DAY_OF_WEEK);
 		System.out.printf("%20s","");
@@ -248,8 +249,8 @@ public class AccountBookService {
 				System.out.printf("\n%20s","");
 			}
 		}
-		System.out.println();
-		miniUtils.markPrint("=");
+		System.out.println("\n\n");
+//		miniUtils.markPrint("=");
 		
 	}
     

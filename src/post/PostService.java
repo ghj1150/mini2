@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import comment.CommentService;
 import mini.miniUtils;
 
 public class PostService {
@@ -52,7 +54,11 @@ public class PostService {
 			case 1:
 				choicePost = findByIdx(miniUtils.next("몇번째글?", Integer.class, n -> findByIdx(n) != null, "게시글이 없습니다"));
 				readpost(choicePost);
-//				modifymenu();
+				CommentService cs = new CommentService(userId,choicePost.getIdx());
+
+				modifymenu(cs);
+//				cs.commentMenu(input); // input 값에 값 넣으면 번호 출력
+				
 				break;
 			case 2:
 				add();
@@ -84,12 +90,13 @@ public class PostService {
 	// 목록보기
 
 	public void list() {
-		System.out.println("                게시판 목록                   ");
-		System.out.println("==============================================");
+		
+		miniUtils.markPrint("=", "게시판 목록");
 
 		for (int i = 0; i < posts.size(); i++) {
 			System.out.println(posts.get(i));
 		}
+		miniUtils.markPrint("-");
 
 	}
 
@@ -106,11 +113,11 @@ public class PostService {
 	}
 
 	// 게시글을 작성한 회원만 수정 삭제 가능하게
-	public void modifymenu() {
+	public void modifymenu(CommentService cs) {
 		while (true) {
 
 			if (userId.equals(choicePost.getUserId())) {
-				int input = miniUtils.next("1.수정하기 2. 삭제하기(종료:0)", Integer.class, n -> n >= 0 && n < 3,
+				int input = miniUtils.next("1.수정하기 2.삭제하기 3.댓글 (종료:0)", Integer.class, n -> n >= 0 && n < 4,
 						"0~2사이의 값을 입력하세요");
 				switch (input) {
 				case 0:
@@ -122,12 +129,24 @@ public class PostService {
 				case 2:
 					remove();
 					return;
+				case 3:
+					cs.commentMenu();
+					return;					
 				default:
 					break;
 				}
 			} else {
+				int input = miniUtils.next("1.댓글 (종료:0)", Integer.class, n -> n >= 0 && n < 2,
+						"0~2사이의 값을 입력하세요");
+				if(input == 0) { 
+					return;
+				}else {
+					cs.commentMenu();
+					return;	
+				}
+				
 //				readpost(choicePost);
-				return;
+//				return;
 			}
 			// 종료
 //			int input = miniUtils.next("종료하시려면(0)", Integer.class, n -> n < 1, "0을 입력하세요");
