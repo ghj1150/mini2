@@ -52,7 +52,7 @@ public class PostService {
 			case 1:
 				choicePost = findByIdx(miniUtils.next("몇번째글?", Integer.class, n -> findByIdx(n) != null, "게시글이 없습니다"));
 				readpost(choicePost);
-				modifymenu();
+//				modifymenu();
 				break;
 			case 2:
 				add();
@@ -109,22 +109,26 @@ public class PostService {
 	public void modifymenu() {
 		while (true) {
 
-//			if (userId.equals(choicePost.getUserId())) {
-			int input = miniUtils.next("1.수정하기 2. 삭제하기(종료:0)", Integer.class, n -> n >= 0 && n < 3, "0~2사이의 값을 입력하세요");
-			switch (input) {
-			case 0:
+			if (userId.equals(choicePost.getUserId())) {
+				int input = miniUtils.next("1.수정하기 2. 삭제하기(종료:0)", Integer.class, n -> n >= 0 && n < 3,
+						"0~2사이의 값을 입력하세요");
+				switch (input) {
+				case 0:
+					return;
+				case 1:
+					modify();
+//				readpost(choicePost);
+					return;
+				case 2:
+					remove();
+					return;
+				default:
+					break;
+				}
+			} else {
+//				readpost(choicePost);
 				return;
-			case 1:
-				modify();
-				readpost(choicePost);
-				return;
-			case 2:
-				remove();
-				return;
-			default:
-				break;
 			}
-//			}
 			// 종료
 //			int input = miniUtils.next("종료하시려면(0)", Integer.class, n -> n < 1, "0을 입력하세요");
 //			switch (input) {
