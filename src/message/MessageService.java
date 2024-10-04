@@ -13,7 +13,7 @@ import mini.miniUtils;
 
 @SuppressWarnings("unchecked")
 public class MessageService {
-
+// 줄바꿈수정, 칼럼 수정
 //   Message msg = new Message("id", "title", "contents");
 	private List<Message> msg = new ArrayList<>();
 	private List<Message> msgTmpSend = new ArrayList<>();
@@ -89,7 +89,7 @@ public class MessageService {
 	// 쪽지함
 	public void messageBox() {
 		miniUtils.markPrint("=", "받은쪽지함");
-
+		System.out.printf("번호 [ %s | %s | %s | %s | %s ]\n", "보낸사람", "받은사람", "제목", "날짜", "확인 ]\n");
 //		System.out.println(msg.get(1).getOtherId() + "," + userId);    // 받은사람과 본인아이디가 일치하는지 확인
 
 		// if (msg.size() == 0) {
@@ -104,7 +104,7 @@ public class MessageService {
 			if (userId.equals(msg.get(i).getOtherId())) {
 
 				msgTmpRep.add(msg.get(i));
-				System.out.println((cnt++) + ". " + msg.get(i));
+				System.out.println(" "+(cnt++) + "." + msg.get(i));
 
 			}
 		}
@@ -185,16 +185,15 @@ public class MessageService {
 		String date = format.format(today);
 		String check = "안읽음";
 		
-		int maxLen = 25;
-		String t = "";
+//		int maxLen = 25;
+//		String t = "";
 //		for(int startIndex = 0; startIndex < contents.length() ; startIndex += maxLen) {
-//			t+= contents.length() > startIndex + maxLen ? contents.substring(startIndex, Math.min(startIndex, maxLen,
-//					contents.length()))
+//			t+= contents.length() > startIndex + maxLen ? contents.substring(startIndex, Math.min(startIndex, maxLen))
+//					+ "\n" : contents.substring(startIndex, Math.min(startIndex, maxLen));
 //		}
+//		contents = t; -- 줄바꿈 기능 작동안댐
 		
-//		contents = contents.substring(0,contents.length())
-		
-//				System.out.printf("[ %2s | %-20s | %8s | %8s | %8s ]\n", "번호", "내용", "수입", "지출", "날짜"); 양식
+//				
 		
 		msg.add(new Message(1, userId, targetId, title, contents, date, check));
 
@@ -260,9 +259,26 @@ public class MessageService {
 		miniUtils.markPrint("-");
 		System.out.println(
 				"보낸사람: " + msgTmp.get(tmpTarget - 1).getUserId() + "/ 제목: " + msgTmp.get(tmpTarget - 1).getTitle());
+		
+		String cont = msgTmp.get(tmpTarget - 1).getContents();
+		int beforidx = 0;
+		
+		for(int i = 0; i < msgTmp.get(tmpTarget - 1).getContents().length(); i += 25) {
+			
+			
+			
+			System.out.println(cont.substring(beforidx,i));
+			
+			beforidx = i;
+			
+//			t+= msgTmp.get(tmpTarget - 1).getContents().length() > startIndex + maxLen ? msgTmp.get(tmpTarget - 1).getContents().substring(startIndex, Math.min(startIndex, maxLen))
+//					+ "\n" : msgTmp.get(tmpTarget - 1).getContents().substring(startIndex, Math.min(startIndex, maxLen));
+		}
+//		contents = t;
 		{
 			miniUtils.markPrint("=");
 			System.out.println("보낸 내용: " + msgTmp.get(tmpTarget - 1).getContents());
+//			System.out.println("보낸 내용: " + t);
 			miniUtils.markPrint("=");
 		}
 	}
