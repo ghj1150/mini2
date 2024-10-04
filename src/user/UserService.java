@@ -12,7 +12,8 @@ import mini.miniUtils;
 
 @SuppressWarnings("unchecked")
 public class UserService {
-	Scanner scanner = new Scanner(System.in);
+	
+//	Scanner scanner = new Scanner(System.in);
 	private List<User> users = new ArrayList<User>();// 어플리케이션에 저장된 모든 회원들에 대한 정보
 	User loginUser; // 현재 로그인한 사용자
 	// null >> 비로그인, not null/로그아웃이 편함
@@ -35,6 +36,7 @@ public class UserService {
 
 	private void loadDefaultData() {
 		users = new ArrayList<>();
+		users.add(new User("test1", "12312", "제갈제니", "2012-01-20"));
 		users.add(new User("test2", "123123", "김라율", "2003-05-20"));
 		users.add(new User("test3", "23452", "곽두팔", "1975-08-17"));
 		users.add(new User("test4", "77554", "곽한구", "1982-02-19"));
@@ -42,11 +44,11 @@ public class UserService {
 
 //userid, pw, name, birth
 	public void UserStart() {
+		
 		System.out.println(users); // 나중에 지울 코드
 		while (true) {
 			miniUtils.markPrint("=", "로그인");
-			System.out.println("1.로그인 2.회원가입 3.비밀번호찾기 (종료:0)");
-			int input = Integer.parseInt(scanner.nextLine());
+			int input = miniUtils.next("1.로그인 2.회원가입 3.비밀번호찾기 (종료:0)", Integer.class, n -> 0 <= n && n <= 3,"0번~ 3번 사이의 값을 입력 해주세요.");
 			switch (input) {
 			case 1:
 				login();
@@ -71,8 +73,8 @@ public class UserService {
 
 	public User loginStart() {
 		while (loginUser != null) {
-			System.out.println("1.로그아웃 2. 탈퇴 3.회원정보수정 (종료:0)");
-			int input1 = Integer.parseInt(scanner.nextLine());
+			miniUtils.markPrint("=", "회원정보");
+			int input1 = miniUtils.next("1.로그아웃 2. 탈퇴 3.회원정보수정 (종료:0)", Integer.class, n -> 0<= n && n <= 3,"0번~ 3번 사이의 값을 입력 해주세요.");
 			switch (input1) {
 			case 1:
 				logout();
@@ -93,15 +95,15 @@ public class UserService {
 	}
 
 	public void login() {
-		System.out.println("아이디>");
-		String id = scanner.nextLine();
+//		System.out.println("아이디>");
+		String id = miniUtils.next("아이디를 입력 해주세요 >", String.class, n -> findById(n) != null," 다시 입력 해주세요. >");
 		User u = findById(id);
 		if (u == null) {
 			System.out.println("입력한 회원의 아이디가 존재하지 않습니다.");
 			return;
 		}
-		System.out.println("비밀번호 >");
-		String pw = scanner.nextLine();
+//		System.out.println("비밀번호 >");
+		String pw =miniUtils.next("비밀번호 >", String.class,	n -> n != null , "형식에 맞게 비밀번호를 작성 해주세요");
 		this.loginUser = u;
 
 		if (!pw.equals(loginUser.getUserPw()) ) {
@@ -131,17 +133,14 @@ public class UserService {
 //	
 
 	public void add() {
-		System.out.println("아이디 > ");
-		String userId = scanner.nextLine();
+		String userId = miniUtils.next("아이디를 입력 해주세요 >", String.class, n -> findById(n) == null, " 존재하는 아이디 입니다. 다시 입력 해주세요.");
 		User u = findById(userId);
-		if (u != null) {
-			System.out.println("입력한 회원의 아이디가 존재합니다.");
-			return;
-		}
-		System.out.println("이름 >");
-		String name = scanner.nextLine();
-		System.out.println("비밀번호 >");
-		String pw = scanner.nextLine();
+//		if (u != null) {
+//			System.out.println("입력한 회원의 아이디가 존재합니다.");
+//			return;
+		
+		String name = miniUtils.next("이름 >", String.class, n -> n != null, " 형식에 맞게 이름을 작성해주세요");
+		String pw = miniUtils.next("비밀번호 >", String.class,	n -> n != null , "형식에 맞게 비밀번호를 작성 해주세요");
 
 		String dateInput = miniUtils.next("연월일을 입력해주세요. ex) 20240930", String.class,
 				n -> n != null && n.matches("\\d{8}"), "양식에 맞게 작성해주세요");
@@ -160,7 +159,7 @@ public class UserService {
 		
 		while (true) {
 			System.out.println("1.비밀번호수정 2.이름수정 3.고정지출수정 4.고정수입수정 5.전체수정 (종료:0)");
-			int input1 = Integer.parseInt(scanner.nextLine());
+			int input1 = miniUtils.next("1.비밀번호수정 2.이름수정 3.고정지출수정 4.고정수입수정 5.전체수정 (종료:0)", Integer.class, n -> 0<= n && n <= 5,"0번~ 5번 사이의 값을 입력 해주세요.");
 			switch (input1) {
 			case 1: 
 				pw = miniUtils.next("변경 할 비밀번호 : ", String.class, n -> n != null, " 입력하신 비밀번호는 형식에 맞지 않습니다. ");
@@ -265,6 +264,7 @@ public class UserService {
 	public void findUser() {
 		// 아이디에 맞는 유저 찾기
 		User user = findById(miniUtils.next("아이디", String.class, n -> findById(n) != null, "입력한 아이디는 존재하지 않습니다."));
+		String birth = miniUtils.next("생년월일을 입력해주세요 >", String.class, n -> n != null, " 형식에 맞게 이름을 작성해주세요");
 		// 비밀번호 받기
 		String pwTmp = miniUtils.next("변경 할 비밀번호 : ", String.class, n -> n != null, " 입력하신 비밀번호는 형식에 맞지 않습니다. ");
 		// 비밀번호 변경 적용
