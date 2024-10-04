@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import static java.util.Calendar.*;
 import mini.miniUtils;
+import user.User;
 
 public class AccountBookService {
 
@@ -12,17 +13,16 @@ public class AccountBookService {
 	private List<AccountBook> tmpDetails = new ArrayList<>();
 	 private List<Analyze> rankList = new ArrayList<>();
 	private Calendar cal = Calendar.getInstance();
-	private String userId;
+	private User loginUser;
 	private int maxIdx;
 
-    public AccountBookService(String userId){
+    public AccountBookService(User loginUser){
     	cal.set(DATE, 1);
-    	this.userId = userId;
+    	this.loginUser = loginUser;
 		loadData = miniUtils.dataLoad("./src/data/accountBook.ser");
 
 		if (loadData == null || loadData.isEmpty()) {
             loadDefaultData();
-//            System.out.println("기본 데이터 추가");
         }
 		if (!loadData.isEmpty()) {
 			maxIdx = loadData.get(loadData.size()-1).getIdx();
@@ -34,14 +34,14 @@ public class AccountBookService {
     
     private void loadDefaultData() {
         loadData = new ArrayList<>();
-        loadData.add(new AccountBook(1, "이승환", "과자", 1000, 0, "2024/09/30"));
-        loadData.add(new AccountBook(2, "한주연", "참치", 0, 10000, "2024/10/30"));
-        loadData.add(new AccountBook(3, "이규철", "고등어", 0, 1, "2024/10/30"));
-        loadData.add(new AccountBook(4, "이현우", "카레", 0, 1, "2024/09/30"));
-        loadData.add(new AccountBook(5, "이승환", "김찌", 0, 1, "2024/10/30"));
-		loadData.add(new AccountBook(5, "이승환", "김참", 3, 0, "2024/10/24"));
-		loadData.add(new AccountBook(5, "이승환", "김ㅋ", 2, 0, "2024/10/10"));
-		loadData.add(new AccountBook(5, "이승환", "김ㄷ", 5, 0, "2024/10/20"));
+        loadData.add(new AccountBook(1, "test1", "과자", 1000, 0, "2024/09/30"));
+        loadData.add(new AccountBook(2, "test2", "참치", 0, 10000, "2024/10/30"));
+        loadData.add(new AccountBook(3, "test3", "고등어", 0, 1, "2024/10/30"));
+        loadData.add(new AccountBook(4, "test4", "카레", 0, 1, "2024/09/30"));
+        loadData.add(new AccountBook(5, loginUser.getUserId(), "김찌", 0, 1, "2024/10/30"));
+		loadData.add(new AccountBook(5, loginUser.getUserId(), "김참", 3, 0, "2024/10/24"));
+		loadData.add(new AccountBook(5, loginUser.getUserId(), "김ㅋ", 2, 0, "2024/10/10"));
+		loadData.add(new AccountBook(5, loginUser.getUserId(), "김ㄷ", 5, 0, "2024/10/20"));
     }
 
 
@@ -64,11 +64,7 @@ public class AccountBookService {
 	 		int totalLosses=0;
 	 		int remainMoney=0;
 	 		int expenseIncomeRate=0;
-	 		
-	 		
-	 		
-	 		 
-	 		
+
 	 		if(i!=0 && tmpList.get(i).getuserId().equals(tmpList.get(i-1).getuserId())){
 	 			Analyze tmp = rankList.get(cnt);  
 	 			
@@ -77,7 +73,7 @@ public class AccountBookService {
 	 			tmp.setRemainMoney(tmp.getTotalIncome() - tmp.getTotalLosses());
 	 			
 	 			if(tmp.getTotalIncome()==0){
-	 				tmp.setExpenseIncomeRate(tmp.getRemainMoney());
+	 				tmp.setExpenseIncomeRate(0);
 	 			}else{
 	 				tmp.setExpenseIncomeRate( (int)((tmp.getRemainMoney() / (double)tmp.getTotalIncome())*100) );
 	 			}
@@ -88,7 +84,7 @@ public class AccountBookService {
 	 			remainMoney = totalIncome-totalLosses;
 	 			
 	 			if(totalIncome==0){
-	 				expenseIncomeRate = (int)(remainMoney/1);
+	 				expenseIncomeRate = 0;
 	 			}else{
 	 				expenseIncomeRate = (int)((remainMoney / (double)totalIncome)*100);
 	 			}
@@ -103,7 +99,6 @@ public class AccountBookService {
 	 }
      
      public void analyzeRankPrint(){
-//    	 rankList = null;
     	 miniUtils.markPrint("=", "★저축 랭킹★");
     	 if(rankList==null || rankList.isEmpty()) {
     		 System.out.printf("%30s","이번달 랭킹이 없습니다." );
@@ -112,13 +107,13 @@ public class AccountBookService {
     	 rankList.sort((o1,o2)->(o2.getExpenseIncomeRate() - o1.getExpenseIncomeRate()));    	 
     	 
     	 for(int i =0; i< rankList.size(); i++) {
-    		 String name = "";
+    		 String userId = "";
     		 if(i==0) {
-    			 name = "🜲"+rankList.get(i).getUserId()+"🜲";
+				userId = "🜲"+rankList.get(i).getUserId()+"🜲";
     		 }else {
-    			 name = rankList.get(i).getUserId()+"   ";
+				userId = rankList.get(i).getUserId()+"   ";
     		 }
-    		 System.out.printf("%20d. %15s %15d %15s\n",i+1,name, rankList.get(i).getExpenseIncomeRate(), "%" );
+    		 System.out.printf("%20d. %15s %15d %15s\n",i+1,userId, rankList.get(i).getExpenseIncomeRate(), "%" );
     	 }
     	 
     	 miniUtils.markPrint("-");
@@ -193,11 +188,11 @@ public class AccountBookService {
     
     public void accountBookPrint() {
 
-		miniUtils.markPrint("-", userId+"님 가계부 목록");
+		miniUtils.markPrint("-", loginUser.getName()+"님 가계부 목록");
     	
     	if(tmpDetails.isEmpty() || tmpDetails == null) {
     		System.out.println();
-    		System.out.printf("%22s",userId+"님 가계부 목록 비어있습니다.\n");
+    		System.out.printf("%22s",loginUser.getName()+"님 가계부 목록 비어있습니다.\n");
     		System.out.println();
     		miniUtils.markPrint("-");
     		return;
@@ -219,7 +214,7 @@ public class AccountBookService {
     		
     		String dateTmp= cal.get(Calendar.YEAR) +"/"+ String.format("%02d", (cal.get(Calendar.MONTH)+1));
     		
-    		if (!ac.getuserId().equals(userId)) {
+    		if (!ac.getuserId().equals(loginUser.getUserId())) {
     			continue;
     		} else if(ac.getDate().substring(0,7).equals(dateTmp)) {
     			tmpDetails.add(ac);
@@ -271,7 +266,7 @@ public class AccountBookService {
     		losses = Integer.parseInt(cost.substring(1));
     	}
     	
-    	loadData.add(new AccountBook(++maxIdx, userId, str, income, losses, date));
+    	loadData.add(new AccountBook(++maxIdx, loginUser.getUserId(), str, income, losses, date));
     	miniUtils.dataSave("./src/data/accountBook.ser", loadData);
     	System.out.println("가계부 작성을 완료했습니다.");
     }
@@ -279,7 +274,7 @@ public class AccountBookService {
     public void modifyAndRemoveProc() {
     	tmpDetails = new ArrayList<>();
     	for(AccountBook ac : loadData) {
-    		if (ac.getuserId().equals(userId)) tmpDetails.add(ac);
+    		if (ac.getuserId().equals(loginUser.getUserId())) tmpDetails.add(ac);
     	}
     	
     	System.out.println(tmpDetails);

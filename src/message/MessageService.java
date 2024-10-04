@@ -37,13 +37,13 @@ public class MessageService {
 
 	private void msgDefaultData() {
 		msg = new ArrayList<>();
-		msg.add(new Message(1, "가", "A", "ㄱㄱㄱ", "내용내용내용", "2024-01-01", "안읽음"));
-		msg.add(new Message(2, "나", "유저", "ㄴㄴㄴ", "내용내용내용", "2024-01-01", "안읽음"));
-		msg.add(new Message(3, "유저", "C", "ㄷㄷㄷ", "내용내용내용", "2024-01-01", "안읽음"));
-		msg.add(new Message(4, "다", "유저", "ㄹㄹㄹ", "내용내용내용", "2024-01-01", "안읽음"));
-		msg.add(new Message(5, "라", "유저", "ㅁㅁㅁ", "내용내용내용", "2024-01-01", "안읽음"));
-		msg.add(new Message(6, "유저", "C", "ㅂㅂㅂ", "내용내용내용", "2024-01-01", "안읽음"));
-		msg.add(new Message(7, "마", "C", "ㅅㅅㅅ", "내용내용내용", "2024-01-01", "안읽음"));
+		msg.add(new Message(1, "test1", "test2", "ㄱㄱㄱ", "내용내용내용", "2024-01-01", "안읽음"));
+		msg.add(new Message(2, "test2", "test4", "ㄴㄴㄴ", "내용내용내용", "2024-01-01", "안읽음"));
+		msg.add(new Message(3, "test3", "test2", "ㄷㄷㄷ", "내용내용내용", "2024-01-01", "안읽음"));
+		msg.add(new Message(4, "test4", "test4", "ㄹㄹㄹ", "내용내용내용", "2024-01-01", "안읽음"));
+		msg.add(new Message(5, "test1", "test2", "ㅁㅁㅁ", "내용내용내용", "2024-01-01", "안읽음"));
+		msg.add(new Message(6, "test2", "test3", "ㅂㅂㅂ", "내용내용내용", "2024-01-01", "안읽음"));
+		msg.add(new Message(7, "test3", "test4", "ㅅㅅㅅ", "내용내용내용", "2024-01-01", "안읽음"));
 //      msg.add(new Message(2,10,"title","con","date"));
 //      msg.add(new Message(3,2,"title2","con2","date2"));
 //      msg.add(new Message(4,1,"title3","con3","date3"));

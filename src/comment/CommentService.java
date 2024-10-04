@@ -26,16 +26,16 @@ public class CommentService {
 
 	private void loadDefaultData() {
         loadData = new ArrayList<>();
-        loadData.add(new Comment(1, "1", 1, 0, "1", null));
-        loadData.add(new Comment(2, "1-1", 1, 1, "1", null));
-        loadData.add(new Comment(3, "X", 2, 0, "2", null));
-        loadData.add(new Comment(4, "1-2", 1, 1, "2", null));
-        loadData.add(new Comment(5, "X", 2, 0, "1", null));
-        loadData.add(new Comment(6, "2", 1, 0, "1", null));
-        loadData.add(new Comment(7, "1-3", 1, 1, "1", null));
-        loadData.add(new Comment(8, "X", 2, 0, "2", null));
-        loadData.add(new Comment(9, "2-1", 1, 6, "2", null));
-        loadData.add(new Comment(10, "X", 2, 0, "1", null));
+        loadData.add(new Comment(1, "히히뭐야", 1, 0, "test1", null));
+        loadData.add(new Comment(2, "뭐긴뭐야", 1, 1, "test2", null));
+        loadData.add(new Comment(3, "하하하", 2, 0, "test3", null));
+        loadData.add(new Comment(4, "뭐긴뭐야가뭐야", 1, 1, "test4", null));
+        loadData.add(new Comment(5, "하?", 2, 3, "test1", null));
+        loadData.add(new Comment(6, "ㅋㅋㅋㅋㅋㅋㅋㅋ", 1, 0, "test2", null));
+        loadData.add(new Comment(7, "뭐긴뭐야가뭔데", 1, 1, "test3", null));
+        loadData.add(new Comment(8, "하...", 2, 0, "test4", null));
+        loadData.add(new Comment(9, "ㅋㅋㅋㅋㅋㅋㅋㅋ", 1, 6, "test2", null));
+        loadData.add(new Comment(10, "하마", 2, 0, "test3", null));
     }
 
 	public void setting(){

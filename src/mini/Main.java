@@ -22,7 +22,7 @@ public class Main implements Serializable{
 			User loginUser = us.getLoginUser();
 
 			while(loginUser != null){
-				AccountBookService ac = new AccountBookService(loginUser.getUserId());
+				AccountBookService ac = new AccountBookService(loginUser);
 				PostService ps = new PostService(loginUser.getUserId()); 
 				MessageService me = new MessageService(loginUser.getUserId());
 
