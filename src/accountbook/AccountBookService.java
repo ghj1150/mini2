@@ -45,54 +45,77 @@ public class AccountBookService {
     }
 
 
-    // public void analyze(){
-	// 	List<AccountBook> tmpList = new ArrayList<>();
-	// 	List<Analyze> analyzeList = new ArrayList<>();
-	// 	String dateTmp= cal.get(Calendar.YEAR) +"/"+ String.format("%02d", (cal.get(Calendar.MONTH)+1)); //현재 달력 날짜
-	// 	for (int i=0; i < loadData.size(); i++){
-	// 		if (dateTmp.equals(loadData.get(i).getDate().substring(0, 7))){
-	// 			tmpList.add(loadData.get(i));
-	// 		}
-	// 	}
-	// 	if(tmpList.isEmpty() || tmpList == null) return;
-	// 	tmpList.sort((o1,o2)->(o1.getuserId()).compareTo(o2.getuserId()));
+     public void analyze(){
+	 	List<AccountBook> tmpList = new ArrayList<>();
+	 	List<Analyze> analyzeList = new ArrayList<>();
+	 	String dateTmp= cal.get(Calendar.YEAR) +"/"+ String.format("%02d", (cal.get(Calendar.MONTH)+1)); //현재 달력 날짜
+	 	for (int i=0; i < loadData.size(); i++){
+	 		if (dateTmp.equals(loadData.get(i).getDate().substring(0, 7))){
+	 			tmpList.add(loadData.get(i));
+	 		}
+	 	}
+	 	if(tmpList.isEmpty() || tmpList == null) return;
+	 	tmpList.sort((o1,o2)->(o1.getuserId()).compareTo(o2.getuserId()));
+		
+		System.out.println(tmpList);
 		
 		
-	// 	for (int i = 0; i < tmpList.size(); i++){
-	// 		int totalIncome=0;
-	// 		int totalLosses=0;
-	// 		int remainMoney=0;
-	// 		double expenseIncomeRate=0;
+		int cnt = -1;
+	 	for (int i = 0; i < tmpList.size(); i++){
+	 		int totalIncome=0;
+	 		int totalLosses=0;
+	 		int remainMoney=0;
+	 		double expenseIncomeRate=0;
 
-	// 		System.out.print("시작 : "+tmpList.get(i));
-	// 		if(i!=0 && tmpList.get(i).getuserId().equals(tmpList.get(i-1).getuserId())){
-	// 			analyzeList.get(i-1).setTotalIncome(analyzeList.get(i-1).getTotalIncome() + tmpList.get(i).getIncome());
-	// 			analyzeList.get(i-1).setTotalLosses(analyzeList.get(i-1).getTotalLosses() + tmpList.get(i).getLosses());
-	// 			analyzeList.get(i-1).setRemainMoney(analyzeList.get(i-1).getRemainMoney() + analyzeList.get(i-1).getTotalIncome() - analyzeList.get(i-1).getTotalLosses());
-	// 			if(analyzeList.get(i-1).getTotalIncome()==0){
-	// 				analyzeList.get(i-1).setExpenseIncomeRate(analyzeList.get(i-1).getRemainMoney());
-	// 			}else{
-	// 				analyzeList.get(i-1).setExpenseIncomeRate(analyzeList.get(i-1).getRemainMoney() / analyzeList.get(i-1).getTotalIncome());
-	// 			}
-	// 		}else{
-	// 			totalIncome = tmpList.get(i).getIncome();
-	// 			totalLosses = tmpList.get(i).getLosses();
-	// 			remainMoney = totalIncome-totalLosses;
-	// 			if(totalIncome==0){
-	// 				expenseIncomeRate = remainMoney/1;
-	// 			}else{
-	// 				expenseIncomeRate = remainMoney/totalIncome;
-	// 			}
+	 		System.out.print("시작 : "+tmpList.get(i));
+	 		
+	 		
+	 		
+	 		
+	 		
+	 		
+	 		if(i!=0 && tmpList.get(i).getuserId().equals(tmpList.get(i-1).getuserId())){
+	 			
+	 			analyzeList.get(cnt).setTotalIncome(analyzeList.get(cnt).getTotalIncome() + tmpList.get(i).getIncome());
+	 			analyzeList.get(cnt).setTotalLosses(analyzeList.get(cnt).getTotalLosses() + tmpList.get(i).getLosses());
+	 			analyzeList.get(cnt).setRemainMoney(analyzeList.get(cnt).getTotalIncome() - analyzeList.get(cnt).getTotalLosses());
+	 			
+	 			System.out.println("Zzzzzzzzzzzzzz");
+	 			System.out.println(analyzeList.get(cnt));
+	 			if(analyzeList.get(cnt).getTotalIncome()==0){
+	 				System.out.println("111");
+	 				analyzeList.get(cnt).setExpenseIncomeRate(analyzeList.get(cnt).getRemainMoney());
+	 			}else{
+	 				System.out.println("222");
+	 				System.out.println(analyzeList.get(cnt).getRemainMoney());
+	 				System.out.println(analyzeList.get(cnt).getTotalIncome());
+	 				System.out.println(analyzeList.get(cnt).getRemainMoney() / analyzeList.get(cnt).getTotalIncome());
+	 				analyzeList.get(cnt).setExpenseIncomeRate(analyzeList.get(cnt).getRemainMoney() / analyzeList.get(cnt).getTotalIncome());
+	 			}
+	 			System.out.println(analyzeList.get(cnt));
+	 			System.out.println("Zzzzzzzzzzzzzz");
+	 			
+	 		}else{
+	 			totalIncome = tmpList.get(i).getIncome();
+	 			totalLosses = tmpList.get(i).getLosses();
+	 			remainMoney = totalIncome-totalLosses;
+	 			
+	 			if(totalIncome==0){
+	 				expenseIncomeRate = remainMoney/1;
+	 			}else{
+	 				expenseIncomeRate = remainMoney/totalIncome;
+	 			}
 
-	// 			analyzeList.add(new Analyze(tmpList.get(i).getuserId(), totalIncome, totalLosses, remainMoney, expenseIncomeRate));
-	// 			continue;
-	// 		}
+	 			analyzeList.add(new Analyze(tmpList.get(i).getuserId(), totalIncome, totalLosses, remainMoney, expenseIncomeRate));
+	 			cnt++;
+	 			continue;
+	 		}
 
 
 
-	// 	}
-	// 	System.out.println(analyzeList);
-	// }
+	 	}
+	 	System.out.println(analyzeList);
+	 }
 
     // 메인 메뉴
     public void accountBookMenu(){
