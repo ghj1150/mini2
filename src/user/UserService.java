@@ -228,10 +228,10 @@ public class UserService {
 	}
 
 	public void remove() {
-		String idTmp = miniUtils.next("아이디", String.class, n -> findById(n) != null, "입력한 아이디는 존재하지 않습니다.");
+		String pwTmp = miniUtils.next("비밀번호를 입력해주세요.", String.class, n -> findByPw(n) != null, "입력한 비밀번호는 틀렸습니다. 다시 입력해주세요.");
 
-		if (idTmp != null) {
-			User user = findById(idTmp);
+		if (pwTmp != null) {
+			User user = findByPw(pwTmp);
 			users.remove(user);
 			users.remove(loginUser);
 			System.out.println("회원탈퇴 완료되었습니다.");
