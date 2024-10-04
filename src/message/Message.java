@@ -11,18 +11,18 @@ public class Message implements Serializable{
 	 private String contents; // 내용
 	 private String date; // 날짜
 //	 private int msgNo; // 메세지 번호
-	 private boolean check; // 메세지 읽음 안읽음
+	 private String check; // 메세지 읽음 안읽음
 
 	 
 
-	public Message(int idx, String userId, String otherId, String title, String contents, String date) {
+	public Message(int idx, String userId, String otherId, String title, String contents, String date, String check) {
 		this.idx = idx;
 		this.userId = userId;
 		this.otherId = otherId;
 		this.title = title;
 		this.contents = contents;
 		this.date = date;
-		this.check = false;
+		this.check = check;
 	}
 	
 	
@@ -105,15 +105,16 @@ public class Message implements Serializable{
 //	public void setMsgNo(int msgNo) {
 //		this.msgNo = msgNo;
 //	}
-	public boolean isCheck() {
+	public String getCheck() {
 		return check;
 	}
-	public void setCheck(boolean check) {
+	public void setCheck(String check) {
 		this.check = check;
 	}
 	@Override
 	public String toString() {
-		return "[ 보낸사람ID = " + userId + ",  받은사람ID = "+ otherId +  ", 제목 = " + title + ", 보낸날짜 = " + date +" ]\n" ;
+		return "[ 보낸사람ID = " + userId + ",  받은사람ID = "+ otherId +  ", 제목 = " + title + ", 보낸날짜 = " + date +" "
+				+ ""+ check +" ]\n" ;
 	}
 	 
 	 
