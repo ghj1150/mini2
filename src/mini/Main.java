@@ -12,12 +12,18 @@ import user.UserService;
 
 public class Main implements Serializable{
 	public static void main(String[] args) {
-		
+		System.out.println("  _    _               _____                   ");
+        System.out.println(" | |  | |             |  __ \\                  ");
+        System.out.println(" | |__| | __ _ _ __   | |  | | ___  _ __    ");
+        System.out.println(" |  __  |/ _` | '_ \\  | |  | |/ _ \\| '_ \\ ");
+        System.out.println(" | |  | | (_| | | | | | |__| | (_) | | | |  ");
+        System.out.println(" |_|  |_|\\__,_|_| |_| |_____/ \\___/|_| |_|");
 		UserService us = new UserService();
 		
 		while(true) {
 			// 로그인
-			us.UserStart();
+			int exit = us.UserStart();
+			if (exit == 0) return;
 			// 로그인 성공
 			User loginUser = us.getLoginUser();
 

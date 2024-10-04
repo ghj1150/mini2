@@ -23,7 +23,7 @@ public class UserService {
 
 		if (users == null || users.isEmpty()) {
 			loadDefaultData();
-			System.out.println("기본 데이터 추가");
+			// System.out.println("기본 데이터 추가");
 		}
 //	
 //	// 데이터 테스트 용
@@ -43,7 +43,7 @@ public class UserService {
 	}
 
 //userid, pw, name, birth
-	public void UserStart() {
+	public int UserStart() {
 		
 		System.out.println(users); // 나중에 지울 코드
 		while (true) {
@@ -62,13 +62,13 @@ public class UserService {
 				break;
 			case 0:
 				System.out.println("종료 되었습니다.");
-				return;
+				return 0;
 			default:
 				break;
 			}
-			if (loginUser != null)break;
+			if (loginUser != null) break;
 		}
-
+		return 1;
 	}
 
 	public User loginStart() {
@@ -111,6 +111,7 @@ public class UserService {
 			this.loginUser =null;
 			return;
 		}
+		System.out.println("\n");
 		System.out.println(loginUser.getName() + "님 환영합니다!");
 	}
 
