@@ -1,66 +1,69 @@
-// Use DBML to define your database structure
-// Docs: https://dbml.dbdiagram.io/docs
-
-Table 회원 {
-  idx integer [primary key]
-  아이디 String
-  비밀번호 String
-  이름 String
-  생일 String
-  고정지출 integer
+Table User {
+  userId String [primary key]
+  userPw String
+  name String
+  birth String
+  fixIncome int
+  fixDay String
+  lostMoney int
+  lostDay String
 }
 
-Table 가계부 {
+Table AccountBook {
   idx integer
-  회원idx String
-  수입 integer
-  지출 integer
-  날짜 String
+  userId String
+  detail integer
+  income integer
+  losses String
+  date String
 }
 
-Table 분석 {
+Table Analyze {
+  userId String
+  totalIncome integer
+  totalLosses integer
+  remainMoney integer
+  expenseIncomeRate integer
+}
+
+Table Post {
   idx integer
-  회원idx String
-  분석 integer
-  통계 integer
+  userId integer
+  title String
+  post String
+  createDate String
 }
 
-Table 게시글 {
+Table Comment {
   idx integer
-  회원idx integer
-  제목 String
-  게시글 String
-  날짜 String
-  좋아요 integer
-  view integer
+  comment String
+  postIdx integer
+  parentIdx integer
+  userId String
+  createDate String  
 }
 
-Table 댓글 {
+Table Message {
   idx integer
-  회원idx String
-  게시글idx integer
-  댓글idx integer
-  날짜 String
-}
-
-Table 쪽지 {
-  idx integer
-  회원idx String
-  상대방idx integer
-  내용 integer
-  날짜 String
-  읽음_안읽음 bool
+  userId String
+  otherId String
+  title String
+  contents String
+  date String
+  check bool
 }
 
 
-Ref: 회원.idx > 가계부.회원idx
+Ref: User.userId < AccountBook.userId
 
-Ref: 회원.idx < 분석.회원idx
+Ref: User.userId < Analyze.userId
 
-Ref: 회원.idx < 게시글.회원idx
+Ref: User.userId < Post.userId
 
-Ref: 회원.idx < 댓글.회원idx
+Ref: Post.idx - Comment.postIdx
 
-Ref: 회원.idx < 쪽지.회원idx
+Ref: Comment.idx < Comment.parentIdx
 
+Ref: User.userId < Message.userId
 
+Ref: User.userId < Message.otherId
