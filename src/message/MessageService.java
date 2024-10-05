@@ -264,13 +264,23 @@ public class MessageService {
 		int beforidx = 0;
 		miniUtils.markPrint("=");
 		System.out.print("보낸 내용: ");
-		for(int i = 0; i < msgTmp.get(tmpTarget - 1).getContents().length(); i += 25) {
+		
+		int m = msgTmp.get(tmpTarget - 1).getContents().length() / 25;
+	
+		for(int i = 1; i < m + 2; i ++) {
+			int j = i * 25;
+//			System.out.println(beforidx +"," +j);
 			
+			if(i == m + 1) {
+				
+				System.out.println(cont.substring(beforidx));
+			}
+			else {
+				System.out.println(cont.substring(beforidx,j));
+				
+			}
 			
-			
-			System.out.println(cont.substring(beforidx,i));
-			
-			beforidx = i;
+			beforidx = j;
 			
 //			t+= msgTmp.get(tmpTarget - 1).getContents().length() > startIndex + maxLen ? msgTmp.get(tmpTarget - 1).getContents().substring(startIndex, Math.min(startIndex, maxLen))
 //					+ "\n" : msgTmp.get(tmpTarget - 1).getContents().substring(startIndex, Math.min(startIndex, maxLen));
