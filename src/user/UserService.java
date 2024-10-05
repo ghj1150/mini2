@@ -95,14 +95,14 @@ public class UserService {
 	}
 
 	public void login() {
-//		System.out.println("아이디>");
+
 		String id = miniUtils.next("아이디를 입력 해주세요 >", String.class, n -> findById(n) != null," 다시 입력 해주세요. >");
 		User u = findById(id);
 		if (u == null) {
 			System.out.println("입력한 회원의 아이디가 존재하지 않습니다.");
 			return;
 		}
-//		System.out.println("비밀번호 >");
+
 		String pw =miniUtils.next("비밀번호 >", String.class,	n -> n != null , "형식에 맞게 비밀번호를 작성 해주세요");
 		this.loginUser = u;
 
@@ -173,7 +173,8 @@ public class UserService {
 				System.out.println("이름 변경이 완료 되었습니다.");
 				return ;
 			case 3: 
-				lostDay = miniUtils.next("매달 고정지출값이 나가는 날짜를 입력 해주세요", String.class, n -> n != " ", " 날짜를 입력해주세요 ");
+				lostDay = miniUtils.next("매달 고정지출값이 나가는 날짜를 입력 해주세요 (yyyy-MM-dd)", String.class,
+						n -> n != null && n.matches("\\d{8}"),  " 날짜 형식을 확인 해주세요 ");
 				lostMoney = miniUtils.next("매달 고정지출값이 나가는 금액을 입력 해주세요", Integer.class, n -> n != null, " 금액을 입력해주세요 ");
 				
 				loginUser.setLostDay(lostDay);
@@ -182,7 +183,7 @@ public class UserService {
 				System.out.println(" 고정 지출일이 등록되었습니다. ");
 				return;
 			case 4:
-				fixDay= miniUtils.next("매달 고정수입이 들어오는 날짜를 입력 해주세요", String.class, n -> n != null, " 날짜를 입력 해주세요");
+				fixDay= miniUtils.next("매달 고정수입이 들어오는 날짜를 입력 해주세요 ", String.class,n -> n != null && n.matches("\\d{8}"),  " 날짜 형식을 확인 해주세요 ");
 				fixIncome= miniUtils.next("매달 고정수입이 들어오는 금액을 입력 해주세요", Integer.class, n -> n != 0, " 금액을 입력 해주세요");
 				 
 				 loginUser.setFixDay(fixDay);
