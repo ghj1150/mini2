@@ -57,7 +57,7 @@ public class CommentService {
 		Comment tmp;
 
 		while(true){
-//			view((List<String>) viewProc(true));
+
 			int input = miniUtils.next("1.댓글 작성 2.대댓글작성 3.댓글수정 4.댓글삭제 (종료:0)",Integer.class,n -> 0 <= n && n < 5, "0~4사이의 숫자만 입력해주세요.");
 
 			switch (input) {
@@ -120,6 +120,13 @@ public class CommentService {
 					cnt++;
 				}
 			}
+
+			if (myComments.isEmpty()){
+				miniUtils.markPrint("=","작성하신 댓글이 없습니다.");
+				return null;
+			}
+
+
 			// 수정/삭제
 			int target = miniUtils.next("댓글 선택 (종료 : 0)",  Integer.class, (n) -> 0 <= n && n <= myComments.size(), "제대로 선택해");		
 			if(target == 0) return null;
@@ -167,7 +174,11 @@ public class CommentService {
 
 	public void view(List<String> strList){
 		// 출력
-		miniUtils.markPrint("=","댓 글");
+		miniUtils.markPrint("-","댓 글");
+		if(strList.size()==0){
+			miniUtils.markPrint(" ","댓글이 없습니다.");
+		}
+
 		for(String i : strList) {
 			System.out.println(i);
 		}

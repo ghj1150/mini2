@@ -107,35 +107,29 @@ public class AccountBookService {
     		 System.out.printf("%30s","이번달 랭킹이 없습니다." );
     		 return;
     	 }    	 
-
-
     	 rankList.sort((o1,o2)->(o2.getExpenseIncomeRate() - o1.getExpenseIncomeRate()));    
 
-    	 List<String> strList = test("순위","L아이디","저축비율","test");
+    	 test("순위","L아이디","저축비율");
+		 miniUtils.markPrint("-");
 
-    	 for(int i =0; i< rankList.size(); i++) {
-    		 String userId = "";
-    		 if(i==0) {
-				userId = "🜲"+rankList.get(i).getUserId()+"🜲";
-    		 }else {
-				userId = rankList.get(i).getUserId()+"   ";
-    		 }
-			 String test= "";
-			 for(String j : strList){
-				test += j;
-			 }
 
-    		 System.out.printf(test,i+1+"",userId, rankList.get(i).getExpenseIncomeRate()+"", "%" );
-			 System.out.println();
-    	 }
+		for (int i = 0; i < rankList.size(); i++) {
+			String userId = "";
+			if (i == 0) {
+				userId = "🜲 " + rankList.get(i).getUserId() + " 🜲";
+			} else {
+				userId ="ㅤ" +rankList.get(i).getUserId() + "ㅤ";
+			}
+			System.out.printf("%5s | %-52s | %7s", (i + 1) + "", userId, rankList.get(i).getExpenseIncomeRate() + " %");
+			System.out.println();
+		}
     	 
-    	 miniUtils.markPrint("-");
+    	 miniUtils.markPrint("-"); 
      }
 
 
-    public List<String> test(String... strArray){
+    public void test(String... strArray){
 		List<String> strList = Arrays.asList(strArray);
-		List<String> returnList = new ArrayList<>();
 		int tmpInterval = 0;
 
 		for (String str : strList){
@@ -151,23 +145,14 @@ public class AccountBookService {
 
 			if(str.substring(0,1).equals("L")) {
 				System.out.printf(print+maxInterval+"s"," "+str.substring(1)+" ");
-				returnList.add(print+maxInterval+"s");
 			}else {
 				System.out.printf(print+str.length()+"s"," "+str+" ");
-				returnList.add(print+str.length()+"s");
 			}
 		}
 		System.out.println();
 
-		return returnList;
 
 	}
-
-
-
-
-
-
     // 메인 메뉴
     public void accountBookMenu(){
 		while(true){
