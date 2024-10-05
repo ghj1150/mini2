@@ -46,18 +46,19 @@ public class PostService {
 		while (true) {
 			list();
 
-			int input = miniUtils.next("1. 게시글 보기 2. 글쓰기(종료 0)", Integer.class, n -> n >= 0 && n <= 2,
+			int input = miniUtils.next("1. 게시글 보기 2. 게시글 작성하기(종료:0)", Integer.class, n -> n >= 0 && n <= 2,
 					"0~2사이의 값을 입력하세요");
 
 			switch (input) {
 			case 1:
-				choicePost = findByIdx(miniUtils.next("몇번째글?", Integer.class, n -> findByIdx(n) != null, "게시글이 없습니다"));
+				choicePost = findByIdx(
+						miniUtils.next("몇번째글 보실래요?", Integer.class, n -> findByIdx(n) != null, "게시글이 없습니다"));
 				readpost(choicePost);
-				CommentService cs = new CommentService(userId,choicePost.getIdx());
+				CommentService cs = new CommentService(userId, choicePost.getIdx());
 
 				modifymenu(cs);
 //				cs.commentMenu(input); // input 값에 값 넣으면 번호 출력
-				
+
 				break;
 			case 2:
 				add();
@@ -76,8 +77,8 @@ public class PostService {
 	// 글쓰기
 	public void add() {
 
-		String title = miniUtils.next("제목", String.class);
-		String post = miniUtils.next("게시글", String.class);
+		String title = miniUtils.next("제목을 작성해주세요", String.class);
+		String post = miniUtils.next("게시글을 작성해주세요", String.class);
 
 		Date now = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("MM/dd");
@@ -89,7 +90,7 @@ public class PostService {
 	// 목록보기
 
 	public void list() {
-		
+
 		miniUtils.markPrint("=", "게시판 목록");
 
 		for (int i = 0; i < posts.size(); i++) {
@@ -104,10 +105,24 @@ public class PostService {
 
 		miniUtils.markPrint("=", "제목 : " + post.getTitle());
 
-		System.out.println("내용 : " + post.getPost() + "\n");
+//		System.out.println("내용 : " + post.getPost() + "\n");
+		int beforidx = 0;
+
+		int p = post.getPost().length() / 25;
+
+		for (int i = 1; i < p + 2; i++) {
+			int j = i * 25;
+
+			if (i == p + 1) {
+				System.out.println(post.getPost().substring(beforidx));
+			} else {
+				System.out.println(post.getPost().substring(beforidx, j));
+			}
+			beforidx = j;
+		}
 
 		System.out.printf("%70s", "날짜 : " + post.getCreateDate() + "\n");
-		miniUtils.markPrint("-");
+//		miniUtils.markPrint("-");
 
 	}
 
@@ -116,7 +131,7 @@ public class PostService {
 		while (true) {
 
 			if (userId.equals(choicePost.getUserId())) {
-				int input = miniUtils.next("1.수정하기 2.삭제하기 3.댓글 (종료:0)", Integer.class, n -> n >= 0 && n < 4,
+				int input = miniUtils.next("1.수정하기 2.삭제하기 3.댓글쓰기 (종료:0)", Integer.class, n -> n >= 0 && n < 4,
 						"0~2사이의 값을 입력하세요");
 				switch (input) {
 				case 0:
@@ -130,20 +145,19 @@ public class PostService {
 					return;
 				case 3:
 					cs.commentMenu();
-					return;					
+					return;
 				default:
 					break;
 				}
 			} else {
-				int input = miniUtils.next("1.댓글 (종료:0)", Integer.class, n -> n >= 0 && n < 2,
-						"0~2사이의 값을 입력하세요");
-				if(input == 0) { 
+				int input = miniUtils.next("1.댓글 (종료:0)", Integer.class, n -> n >= 0 && n < 2, "0~2사이의 값을 입력하세요");
+				if (input == 0) {
 					return;
-				}else {
+				} else {
 					cs.commentMenu();
-					return;	
+					return;
 				}
-				
+
 //				readpost(choicePost);
 //				return;
 			}
