@@ -159,7 +159,7 @@ public class UserService {
 		int fixIncome = 0;
 		
 		while (true) {
-			System.out.println("1.비밀번호수정 2.이름수정 3.고정지출수정 4.고정수입수정 5.전체수정 (종료:0)");
+			
 			int input1 = miniUtils.next("1.비밀번호수정 2.이름수정 3.고정지출수정 4.고정수입수정 5.전체수정 (종료:0)", Integer.class, n -> 0<= n && n <= 5,"0번~ 5번 사이의 값을 입력 해주세요.");
 			switch (input1) {
 			case 1: 
