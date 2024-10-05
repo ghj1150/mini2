@@ -24,7 +24,7 @@ public class MessageService {
 		this.userId = userId;
 		msg = miniUtils.dataLoad("./src/data/message.ser");
 		if (msg == null || msg.isEmpty()) {
-//			msgDefaultData();
+			msgDefaultData();
 		}
 //      setting();
 		// 데이터 테스트 용
@@ -89,7 +89,7 @@ public class MessageService {
 	// 쪽지함
 	public void messageBox() {
 		miniUtils.markPrint("=", "받은쪽지함");
-		System.out.printf("번호 [ %s | %s | %s | %s | %s ]\n", "보낸사람", "받은사람", "제목", "날짜", "확인 ]\n");
+		System.out.printf("번호 [ %s | %s | %s | %s | %s ]\n", "보낸사람", "받은사람", "제목", "날짜", "확인");
 //		System.out.println(msg.get(1).getOtherId() + "," + userId);    // 받은사람과 본인아이디가 일치하는지 확인
 
 		// if (msg.size() == 0) {

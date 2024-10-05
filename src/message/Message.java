@@ -114,7 +114,7 @@ public class Message implements Serializable{
 	@Override
 	public String toString() {
 		return "  [ " + userId + " | "+ otherId +  " | " + title + " | " + date +" "
-				+ ""+ check +" ]\n" ;
+				+ ""+ check +" ]" ;
 	}
 	 
 	 
