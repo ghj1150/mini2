@@ -36,10 +36,10 @@ public class UserService {
 
 	private void loadDefaultData() {
 		users = new ArrayList<>();
-		users.add(new User("test1", "12312", "제갈제니", "2012-01-20"));
-		users.add(new User("test2", "123123", "김라율", "2003-05-20"));
-		users.add(new User("test3", "23452", "곽두팔", "1975-08-17"));
-		users.add(new User("test4", "77554", "곽한구", "1982-02-19"));
+		users.add(new User("test1", "12312", "제갈제니", "2012/01/20"));
+		users.add(new User("test2", "123123", "김라율", "2003/05/20"));
+		users.add(new User("test3", "23452", "곽두팔", "1975/08/17"));
+		users.add(new User("test4", "77554", "곽한구", "1982/02/19"));
 	}
 
 //userid, pw, name, birth
@@ -134,8 +134,9 @@ public class UserService {
 //	
 
 	public void add() {
-		String userId = miniUtils.next("아이디를 입력 해주세요 >", String.class, n -> findById(n) == null, " 존재하는 아이디 입니다. 다시 입력 해주세요.");
+		String userId = miniUtils.next("아이디를 입력 해주세요 >", String.class, n -> findById(n) == null &&  n.matches("[a-zA-Z]+"), " 영문이 아니거나 존재하는 ID 입니다. 다시 입력 해주세요.");
 		User u = findById(userId);
+//		String.class, str -> str.matches("[a-zA-Z]+"),
 //		if (u != null) {
 //			System.out.println("입력한 회원의 아이디가 존재합니다.");
 //			return;
@@ -173,11 +174,12 @@ public class UserService {
 				System.out.println("이름 변경이 완료 되었습니다.");
 				return ;
 			case 3: 
-				lostDay = miniUtils.next("매달 고정지출값이 나가는 날짜를 입력 해주세요 (yyyy-MM-dd)", String.class,
+				lostDay = miniUtils.next("매달 고정지출값이 나가는 날짜를 입력 해주세요 ex) 20240930\" ", String.class,
 						n -> n != null && n.matches("\\d{8}"),  " 날짜 형식을 확인 해주세요 ");
+				String date = lostDay.substring(0, 4) + "/" + lostDay.substring(4, 6) + "/" + lostDay.substring(6);
 				lostMoney = miniUtils.next("매달 고정지출값이 나가는 금액을 입력 해주세요", Integer.class, n -> n != null, " 금액을 입력해주세요 ");
 				
-				loginUser.setLostDay(lostDay);
+				loginUser.setLostDay(date);
 				loginUser.setLostMoney(lostMoney);
 				
 				System.out.println(" 고정 지출일이 등록되었습니다. ");
@@ -262,11 +264,34 @@ public class UserService {
 		}
 		return user;
 	}
+	private User findByBirthDay(String birth) {
+//		User user = null;
+		for (User u : users) {
+			  if (u.getBirth().equals(birth)) {
+		            return u;
+			}
+		}
+		return null;
+	}
+	
 
 	public void findUser() {
 		// 아이디에 맞는 유저 찾기
-		User user = findById(miniUtils.next("아이디", String.class, n -> findById(n) != null, "입력한 아이디는 존재하지 않습니다."));
-		String birth = miniUtils.next("생년월일을 입력해주세요 >", String.class, n -> n != null, " 형식에 맞게 이름을 작성해주세요");
+	    User user = findById(miniUtils.next("아이디", String.class, n -> findById(n) != null, "입력한 아이디는 존재하지 않습니다."));
+	    if (user == null) {
+	        System.out.println("해당 아이디가 존재하지 않습니다.");
+	        return;
+	    }
+	    
+	    // 생년월일 입력 및 검증
+	    String birth = miniUtils.next("생년월일을 입력해주세요. ex) 20240930", String.class,
+	                                  n -> n != null && n.matches("\\d{8}"), "양식에 맞게 작성해주세요");
+	    String formattedBirth = birth.substring(0, 4) + "/" + birth.substring(4, 6) + "/" + birth.substring(6);
+	    
+	    if (!user.getBirth().equals(formattedBirth)) {
+	        System.out.println("입력한 생년월일이 맞지 않습니다.");
+	        return;
+	    }
 		// 비밀번호 받기
 		String pwTmp = miniUtils.next("변경 할 비밀번호 : ", String.class, n -> n != null, " 입력하신 비밀번호는 형식에 맞지 않습니다. ");
 		// 비밀번호 변경 적용
