@@ -92,6 +92,7 @@ public class PostService {
 	public void list() {
 
 		miniUtils.markPrint("=", "게시판 목록");
+		System.out.printf(" %1s %7s %7s %10s \n", "번호", "아이디", "제목", "날짜");
 
 		for (int i = 0; i < posts.size(); i++) {
 			System.out.println(posts.get(i));
