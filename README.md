@@ -23,6 +23,6 @@ JAVA, Git, Discode, SouceTree
 ## Class extends 설계도
 ![plan](https://github.com/user-attachments/assets/f1389505-35da-4249-8174-6c8abb31d988)
 
-## Variable 설계
-![ERD](https://github.com/user-attachments/assets/73d1e014-1314-473b-993b-956c4d2ceffa)
+## ERD
+![image](https://github.com/user-attachments/assets/92814c48-be18-492e-9273-4488cb5a6928)
 
