@@ -137,7 +137,7 @@ public class MessageService {
 	// 보낸 쪽지함
 	public void sentBox() {
 		miniUtils.markPrint("=", "보낸쪽지함");
-
+		System.out.printf("번호 [ %-2s | %-2s | %-8s | %-12s | %s ]\n", "보낸사람", "받은사람", "제목", "날짜", "확인");
 //		System.out.println(msg.get(1).getOtherId() + "," + userId);    // 받은사람과 본인아이디가 일치하는지 확인
 
 		// 원본
@@ -181,7 +181,7 @@ public class MessageService {
 		// String contents = miniUtils.next("보낼 내용", String.class);
 		String contents = miniUtils.next("보낼 내용", String.class);
 		Date today = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm:ss a");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm a");
 		String date = format.format(today);
 		String check = "안읽음";
 		
