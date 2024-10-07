@@ -45,7 +45,7 @@ public class UserService {
 //userid, pw, name, birth
 	public int UserStart() {
 		
-		System.out.println(users); // 나중에 지울 코드
+//		System.out.println(users); // 나중에 지울 코드
 		while (true) {
 			miniUtils.markPrint("=", "로그인");
 			int input = miniUtils.next("1.로그인 2.회원가입 3.비밀번호찾기 (종료:0)", Integer.class, n -> 0 <= n && n <= 3,"0번~ 3번 사이의 값을 입력 해주세요.");

@@ -42,9 +42,9 @@ public class AccountBookService {
         loadData.add(new AccountBook(3, "test3", "고등어", 0, 1, "2024/10/30"));
         loadData.add(new AccountBook(4, "test4", "카레", 0, 1, "2024/09/30"));
         loadData.add(new AccountBook(5, loginUser.getUserId(), "김찌", 0, 1, "2024/10/30"));
-		loadData.add(new AccountBook(5, loginUser.getUserId(), "김참", 3, 0, "2024/10/24"));
-		loadData.add(new AccountBook(5, loginUser.getUserId(), "김ㅋ", 2, 0, "2024/10/10"));
-		loadData.add(new AccountBook(5, loginUser.getUserId(), "김ㄷ", 5, 0, "2024/10/20"));
+		loadData.add(new AccountBook(5, loginUser.getUserId(), "김참", 3000, 0, "2024/10/24"));
+		loadData.add(new AccountBook(5, loginUser.getUserId(), "김밥", 2000, 0, "2024/10/10"));
+		loadData.add(new AccountBook(5, loginUser.getUserId(), "된찌", 5000, 0, "2024/10/20"));
     }
 
 
@@ -109,18 +109,21 @@ public class AccountBookService {
     	 }    	 
     	 rankList.sort((o1,o2)->(o2.getExpenseIncomeRate() - o1.getExpenseIncomeRate()));    
 
-    	 test("순위","L아이디","저축비율");
+    	 mune("순위","L아이디","저축비율");
 		 miniUtils.markPrint("-");
 
 
 		for (int i = 0; i < rankList.size(); i++) {
 			String userId = "";
 			if (i == 0) {
-				userId = "🜲 " + rankList.get(i).getUserId() + " 🜲";
+				userId = "🜲" + rankList.get(i).getUserId() + "🜲";
+				System.out.printf("%5s | %-55s | %7s", (i + 1) + "", userId, rankList.get(i).getExpenseIncomeRate() + " %");
+
 			} else {
 				userId ="ㅤ" +rankList.get(i).getUserId() + "ㅤ";
+				System.out.printf("%5s | %-52s | %7s", (i + 1) + "", userId, rankList.get(i).getExpenseIncomeRate() + " %");
 			}
-			System.out.printf("%5s | %-52s | %7s", (i + 1) + "", userId, rankList.get(i).getExpenseIncomeRate() + " %");
+			
 			System.out.println();
 		}
     	 
@@ -128,7 +131,7 @@ public class AccountBookService {
      }
 
 
-    public void test(String... strArray){
+    public void mune(String... strArray){
 		List<String> strList = Arrays.asList(strArray);
 		int tmpInterval = 0;
 
@@ -311,7 +314,7 @@ public class AccountBookService {
     		if (ac.getuserId().equals(loginUser.getUserId())) tmpDetails.add(ac);
     	}
     	
-    	System.out.println(tmpDetails);
+
     }
     
     
