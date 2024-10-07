@@ -2,6 +2,7 @@ package post;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -92,7 +93,9 @@ public class PostService {
 	public void list() {
 
 		miniUtils.markPrint("=", "게시판 목록");
-		System.out.printf(" %1s %7s %7s %10s \n", "번호", "아이디", "제목", "날짜");
+//		System.out.printf(" %1s| %7s | %8s  | %8s \n", "번호", "아이디", "제목", "날짜");
+		test("번호","아이디","L제목","날짜");
+		miniUtils.markPrint("-");
 
 		for (int i = 0; i < posts.size(); i++) {
 			System.out.println(posts.get(i));
@@ -126,6 +129,32 @@ public class PostService {
 //		miniUtils.markPrint("-");
 
 	}
+	
+	 public void test(String... strArray){
+			List<String> strList = Arrays.asList(strArray);
+			int tmpInterval = 0;
+
+			for (String str : strList){
+				if(str.substring(0,1)=="L") continue;
+				tmpInterval += str.length()+2;
+			}
+
+			int maxInterval = 72 - tmpInterval - strList.size() - 1;
+
+			for (String str : strList){
+
+				String print = (str==strList.get(0)) ? "%-" : "|%-";
+
+				if(str.substring(0,1).equals("L")) {
+					System.out.printf(print+maxInterval+"s"," "+str.substring(1)+" ");
+				}else {
+					System.out.printf(print+str.length()+"s"," "+str+" ");
+				}
+			}
+			System.out.println();
+
+
+		}
 
 	// 게시글을 작성한 회원만 수정 삭제 가능하게
 	public void modifymenu(CommentService cs) {
