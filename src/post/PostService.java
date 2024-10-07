@@ -92,7 +92,7 @@ public class PostService {
 
 	public void list() {
 
-		miniUtils.markPrint("=", "게시판 목록");
+		miniUtils.markPrint("=", "게시판");
 //		System.out.printf(" %1s| %7s | %8s  | %8s \n", "번호", "아이디", "제목", "날짜");
 		test("번호","아이디","L제목","날짜");
 		miniUtils.markPrint("-");
