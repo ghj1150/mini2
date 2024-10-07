@@ -29,7 +29,7 @@ public class UserService {
 //	// 데이터 테스트 용
 //	 System.out.println(users);
 		// 데이터 save
-//	 miniUtils.dataSave("./src/data/user.ser", users);
+	
 //
 ////회원가입,로그인 
 	}
@@ -81,9 +81,11 @@ public class UserService {
 				return null;
 			case 2:
 				remove();
+				 miniUtils.dataSave("./src/data/user.ser", users);
 				return null;
 			case 3:
 				modify();
+				 miniUtils.dataSave("./src/data/user.ser", users);
 				break;
 			case 0:
 				return loginUser;
@@ -149,6 +151,7 @@ public class UserService {
 		String date = dateInput.substring(0, 4) + "/" + dateInput.substring(4, 6) + "/" + dateInput.substring(6);
 
 		users.add(new User(userId, pw, name, date));
+		 miniUtils.dataSave("./src/data/user.ser", users);
 	}
 
 	public void modify() {
