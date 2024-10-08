@@ -136,7 +136,7 @@ public class UserService {
 //	
 
 	public void add() {
-		String userId = miniUtils.next("아이디를 입력 해주세요 >", String.class, n -> findById(n) == null &&  n.matches("[a-zA-Z]+"), " 영문이 아니거나 존재하는 ID 입니다. 다시 입력 해주세요.");
+		String userId = miniUtils.next("아이디를 입력 해주세요 >", String.class, n -> findById(n) == null &&  n.matches("[a-zA-Z0-9]+"), " 영문이 아니거나 존재하는 ID 입니다. 다시 입력 해주세요.");
 		User u = findById(userId);
 //		String.class, str -> str.matches("[a-zA-Z]+"),
 //		if (u != null) {

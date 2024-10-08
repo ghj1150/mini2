@@ -26,13 +26,13 @@ public class CommentService {
 
 	private void loadDefaultData() {
         loadData = new ArrayList<>();
-        loadData.add(new Comment(1, "히히뭐야", 1, 0, "test1", null));
-        loadData.add(new Comment(2, "뭐긴뭐야", 1, 1, "test2", null));
+        loadData.add(new Comment(1, "평화통일정책에대해서 많이배웠습니다", 1, 0, "test1", null));
+        loadData.add(new Comment(2, "오 저도 많이 배워갑니다", 1, 1, "test2", null));
         loadData.add(new Comment(3, "하하하", 2, 0, "test3", null));
-        loadData.add(new Comment(4, "뭐긴뭐야가뭐야", 1, 1, "test4", null));
+        loadData.add(new Comment(4, "저도요~~~~~~", 1, 1, "test4", null));
         loadData.add(new Comment(5, "하?", 2, 3, "test1", null));
-        loadData.add(new Comment(6, "ㅋㅋㅋㅋㅋㅋㅋㅋ", 1, 0, "test2", null));
-        loadData.add(new Comment(7, "뭐긴뭐야가뭔데", 1, 1, "test3", null));
+        loadData.add(new Comment(6, "좋은 정보 감사합니다", 1, 0, "test2", null));
+        loadData.add(new Comment(7, "좋은 정보 감사합니다2", 1, 1, "test3", null));
         loadData.add(new Comment(8, "하...", 2, 0, "test4", null));
         loadData.add(new Comment(9, "ㅋㅋㅋㅋㅋㅋㅋㅋ", 1, 6, "test2", null));
         loadData.add(new Comment(10, "하마", 2, 0, "test3", null));

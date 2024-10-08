@@ -256,13 +256,13 @@ public class MessageService {
 //			msg.get(tmpTarget-1).setCheck("안읽음");
 			msgTmp.get(tmpTarget-1).setCheck("읽음");
 		}
-		miniUtils.markPrint("-");
+		miniUtils.markPrint("=");
 		System.out.println(
 				"보낸사람: " + msgTmp.get(tmpTarget - 1).getUserId() + "/ 제목: " + msgTmp.get(tmpTarget - 1).getTitle());
 		
 		String cont = msgTmp.get(tmpTarget - 1).getContents();
 		int beforidx = 0;
-		miniUtils.markPrint("=");
+		miniUtils.markPrint("-");
 		System.out.print("보낸 내용: ");
 		
 		int m = msgTmp.get(tmpTarget - 1).getContents().length() / 25;
@@ -292,6 +292,8 @@ public class MessageService {
 //			System.out.println("보낸 내용: " + t);
 			miniUtils.markPrint("=");
 		}
+		
+		System.out.println("\n\n");
 	}
 
 	// 송신자 찾기

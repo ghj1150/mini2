@@ -41,10 +41,10 @@ public class AccountBookService {
         loadData.add(new AccountBook(2, "test2", "참치", 0, 10000, "2024/10/30"));
         loadData.add(new AccountBook(3, "test3", "고등어", 0, 1, "2024/10/30"));
         loadData.add(new AccountBook(4, "test4", "카레", 0, 1, "2024/09/30"));
-        loadData.add(new AccountBook(5, loginUser.getUserId(), "김찌", 0, 1, "2024/10/30"));
-		loadData.add(new AccountBook(5, loginUser.getUserId(), "김참", 3000, 0, "2024/10/24"));
-		loadData.add(new AccountBook(5, loginUser.getUserId(), "김밥", 2000, 0, "2024/10/10"));
-		loadData.add(new AccountBook(5, loginUser.getUserId(), "된찌", 5000, 0, "2024/10/20"));
+        loadData.add(new AccountBook(5, loginUser.getUserId(), "판매", 50000, 0, "2024/10/30"));
+		loadData.add(new AccountBook(5, loginUser.getUserId(), "김참", 0, 3000, "2024/10/24"));
+		loadData.add(new AccountBook(5, loginUser.getUserId(), "김밥", 0, 2000, "2024/10/10"));
+		loadData.add(new AccountBook(5, loginUser.getUserId(), "된찌", 0, 7000, "2024/10/20"));
     }
 
 

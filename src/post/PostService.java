@@ -22,7 +22,7 @@ public class PostService {
 
 		if (posts == null || posts.isEmpty()) {
 			posts = new ArrayList<Post>();
-			posts.add(new Post(1, "test1", "제목1", "히히히", "09/26"));
+			posts.add(new Post(1, "test1", "평화통일", "평화통일정책의 수립에 관한 대통령의 자문에 응하기 위하여 민주평화통일자문회의를 둘 수 있다. 국민의 자유와 권리는 헌법에 열거되지 아니한 이유로 경시되지 아니한다.", "09/26"));
 			posts.add(new Post(2, "test2", "제목2", "호호호", "09/26"));
 			posts.add(new Post(3, "test3", "제목3", "허허허", "09/26"));
 			posts.add(new Post(4, "test4", "제목4", "후후후", "09/26"));
