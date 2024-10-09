@@ -1,6 +1,5 @@
 # 한돈 - 가계부커뮤니티 (Mini Project)
 
-
 ### 설명 
 타겟 - 저축을 하고싶어하는 사람들
 
@@ -10,7 +9,7 @@
 2. 회원들간의 저축 비율 순위를 측정하여 경쟁심을 유발 -> 저축을 많이 할 수 있도록 동기부여
 
 ### 사용언어 및 툴
-JAVA, Git, Discode, SouceTree
+JAVA, Git, Discord, SouceTree
 
 ## 기능
 ```
@@ -23,6 +22,6 @@ JAVA, Git, Discode, SouceTree
 ## Class extends 설계도
 ![plan](https://github.com/user-attachments/assets/f1389505-35da-4249-8174-6c8abb31d988)
 
-## ERD
-![image](https://github.com/user-attachments/assets/92814c48-be18-492e-9273-4488cb5a6928)
+## Use Case Diagram
+![image](https://github.com/user-attachments/assets/158167d0-1a6c-4839-aa6b-1810e6139ca9)
 
