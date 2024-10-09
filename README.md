@@ -1,4 +1,5 @@
 # 한돈 - 가계부커뮤니티 (Mini Project)
+[한돈 발표자료.pptx](https://github.com/user-attachments/files/17307279/2.pptx)
 
 ### 설명 
 타겟 - 저축을 하고싶어하는 사람들
